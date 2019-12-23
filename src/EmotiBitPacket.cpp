@@ -26,12 +26,14 @@ const char* EmotiBitPacket::TypeTag::DATA_CLIPPING = "DC\0";
 const char* EmotiBitPacket::TypeTag::DATA_OVERFLOW = "DO\0";
 const char* EmotiBitPacket::TypeTag::SD_CARD_PERCENT = "SD\0";
 const char* EmotiBitPacket::TypeTag::RESET = "RS\0"; // still necessary?
+const char* EmotiBitPacket::TypeTag::DEBUG = "DB\0";
+const char* EmotiBitPacket::TypeTag::ACK = "AK\0";
+const char* EmotiBitPacket::TypeTag::REQUEST_DATA = "RD\0";
 const char* EmotiBitPacket::TypeTag::TIMESTAMP_LOCAL = "TL\0";
 const char* EmotiBitPacket::TypeTag::TIMESTAMP_UTC = "TU\0";
 const char* EmotiBitPacket::TypeTag::TIMESTAMP_CROSS_TIME = "TX\0";
-const char* EmotiBitPacket::TypeTag::ACK = "AK\0";
-const char* EmotiBitPacket::TypeTag::REQUEST_DATA = "RD\0";
-const char* EmotiBitPacket::TypeTag::DEBUG = "DB\0";
+const char* EmotiBitPacket::TypeTag::EMOTIBIT_MODE = "EM\0";
+const char* EmotiBitPacket::TypeTag::EMOTIBIT_INFO = "EI\0";
 // Computer data TypeTags
 const char* EmotiBitPacket::TypeTag::GPS_LATLNG = "GL\0";
 const char* EmotiBitPacket::TypeTag::GPS_SPEED = "GS\0";
@@ -40,15 +42,22 @@ const char* EmotiBitPacket::TypeTag::GPS_ALTITUDE = "GA\0";
 const char* EmotiBitPacket::TypeTag::USER_NOTE = "UN\0";
 const char* EmotiBitPacket::TypeTag::LSL_MARKER = "LM\0";
 // Control TypeTags
-const char* EmotiBitPacket::TypeTag::PING = "PI\0";
-const char* EmotiBitPacket::TypeTag::PONG = "PO\0";
-const char* EmotiBitPacket::TypeTag::HELLO_EMOTIBIT = "HE\0";
-const char* EmotiBitPacket::TypeTag::HELLO_COMPUTER = "HC\0";
-const char* EmotiBitPacket::TypeTag::EMOTIBIT_CONNECT = "EC\0";
-const char* EmotiBitPacket::TypeTag::EMOTIBIT_DISCONNECT = "ED\0";
 const char* EmotiBitPacket::TypeTag::RECORD_BEGIN = "RB\0";
 const char* EmotiBitPacket::TypeTag::RECORD_END = "RE\0";
-const char* EmotiBitPacket::TypeTag::MODE_HIBERNATE = "MH\0";
+const char* EmotiBitPacket::TypeTag::MODE_LOW_POWER = "ML\0";				// Stops sending data timestamping should be accurate
+const char* EmotiBitPacket::TypeTag::MODE_MAX_LOW_POWER = "MM\0";		// Stops sending data timestamping accuracy drops
+const char* EmotiBitPacket::TypeTag::MODE_HIBERNATE = "MH\0";				// Full shutdown of all operation
+const char* EmotiBitPacket::TypeTag::PING = "PI\0";
+const char* EmotiBitPacket::TypeTag::PONG = "PO\0";
+const char* EmotiBitPacket::TypeTag::EMOTIBIT_DISCONNECT = "ED\0";
+const char* EmotiBitPacket::TypeTag::KEEP_ALIVE = "KA\0";
+// Advertising TypeTags
+const char* EmotiBitPacket::TypeTag::HELLO_EMOTIBIT = "HE\0";
+const char* EmotiBitPacket::TypeTag::HELLO_HOST = "HH\0";
+//const char* EmotiBitPacket::TypeTag::HELLO_COMPUTER = "HC\0";
+const char* EmotiBitPacket::TypeTag::CONTROL_PORT = "CP\0";
+const char* EmotiBitPacket::TypeTag::EMOTIBIT_CONNECT = "EC\0";
+
 
 const uint8_t nAperiodicTypeTags = 2;
 const uint8_t nUserMessagesTypeTags = 1;
@@ -59,6 +68,7 @@ const char* const EmotiBitPacket::TypeTagGroups::USER_MESSAGES[nUserMessagesType
 //vector<string> EmotiBitPacket::TypeTag::APERIODIC.push_back(EmotiBitPacket::TypeTag::DATA_CLIPPING);
 
 const char EmotiBitPacket::PACKET_DELIMITER_CSV = '\n';
+const uint16_t MAX_TO_EMOTIBIT_PACKET_LEN = 255;
 #ifdef ARDUINO
 	const String EmotiBitPacket::TIMESTAMP_STRING_FORMAT = "%Y-%m-%d_%H-%M-%S-%f";
 #else
@@ -158,7 +168,7 @@ int16_t EmotiBitPacket::getHeader(const String & packet, Header &packetHeader)
 bool EmotiBitPacket::getHeader(const vector<string>& packet, Header &packetHeader) 
 {
 
-	if (packet.size() >= EmotiBitPacket::Header::length) {
+	if (packet.size() >= EmotiBitPacket::headerLength) {
 
 		try {
 
@@ -204,7 +214,7 @@ bool EmotiBitPacket::getHeader(const vector<string>& packet, Header &packetHeade
 			return false;
 		}
 
-		if (packet.size() < EmotiBitPacket::Header::length + packetHeader.dataLength) {
+		if (packet.size() < (size_t) EmotiBitPacket::headerLength + packetHeader.dataLength) {
 			//malformedMessages++;
 			//cout << "**** MALFORMED MESSAGE " << malformedMessages << ", " << messageLen << " ****" << endl;
 			return false;
@@ -217,3 +227,16 @@ bool EmotiBitPacket::getHeader(const vector<string>& packet, Header &packetHeade
 	return true;
 }
 #endif
+
+EmotiBitPacket::Header EmotiBitPacket::createHeader(string typeTag, uint32_t timestamp, uint16_t packetNumber, uint16_t dataLength, uint16_t protocolVersion, uint16_t dataReliability)
+{
+	EmotiBitPacket::Header header;
+	header.typeTag = typeTag;
+	header.timestamp = timestamp;
+	header.packetNumber = packetNumber;
+	header.dataLength = dataLength;
+	header.protocolVersion = protocolVersion;
+	header.dataReliability = dataReliability;
+
+	return header;
+}

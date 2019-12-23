@@ -31,9 +31,7 @@ public:
 #endif
 		uint8_t protocolVersion;
 		uint8_t dataReliability;
-
-		static const uint8_t length = 6;
-
+		
 		struct Structure {
 			uint32_t timestamp;
 			uint16_t packetNumber;
@@ -43,8 +41,14 @@ public:
 			uint8_t dataReliability;
 		};
 	};
+
+	static const uint8_t headerLength = 6;
+	static const uint8_t headerByteLength = 12;
 	
 	//Header header;
+
+	static Header createHeader(string typeTag, uint32_t timestamp, uint16_t packetNumber, uint16_t dataLength = 0, uint16_t protocolVersion = 1, uint16_t dataReliability = 100);
+
 #ifdef ARDUINO
 	static String headerToString(Header & header)
 	{
@@ -181,14 +185,21 @@ public:
 		static const char* TIMESTAMP_UTC;
 		static const char* TIMESTAMP_CROSS_TIME;
 		static const char* LSL_MARKER;
+		static const char* EMOTIBIT_MODE;
+		static const char* EMOTIBIT_INFO;
 		static const char* RECORD_BEGIN;
 		static const char* RECORD_END;
 		static const char* USER_NOTE;
+		static const char* MODE_LOW_POWER;
+		static const char* MODE_MAX_LOW_POWER;
 		static const char* MODE_HIBERNATE;
 		static const char* HELLO_EMOTIBIT;
-		static const char* HELLO_COMPUTER;
+		static const char* HELLO_HOST;
+		//static const char* HELLO_COMPUTER;
 		static const char* EMOTIBIT_CONNECT;
 		static const char* EMOTIBIT_DISCONNECT;
+		static const char* CONTROL_PORT;
+		static const char* KEEP_ALIVE;
 		static const char* ACK;
 		static const char* REQUEST_DATA;
 		static const char* PING;
@@ -205,6 +216,7 @@ public:
   };
 	
   static const char PACKET_DELIMITER_CSV;
+	static const uint16_t MAX_TO_EMOTIBIT_PACKET_LEN;
 #ifdef ARDUINO
 	static const String TIMESTAMP_STRING_FORMAT;
 #else
