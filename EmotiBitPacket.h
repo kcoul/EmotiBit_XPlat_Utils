@@ -46,8 +46,11 @@ public:
 	static const uint8_t headerByteLength = 12;
 	
 	//Header header;
-
+#ifdef ARDUINO
+	static Header createHeader(String typeTag, uint32_t timestamp, uint16_t packetNumber, uint16_t dataLength = 0, uint16_t protocolVersion = 1, uint16_t dataReliability = 100);
+#else
 	static Header createHeader(string typeTag, uint32_t timestamp, uint16_t packetNumber, uint16_t dataLength = 0, uint16_t protocolVersion = 1, uint16_t dataReliability = 100);
+#endif
 
 #ifdef ARDUINO
 	static String headerToString(Header & header)

@@ -228,7 +228,11 @@ bool EmotiBitPacket::getHeader(const vector<string>& packet, Header &packetHeade
 }
 #endif
 
+#ifdef ARDUINO
+EmotiBitPacket::Header EmotiBitPacket::createHeader(String typeTag, uint32_t timestamp, uint16_t packetNumber, uint16_t dataLength, uint16_t protocolVersion, uint16_t dataReliability)
+#else
 EmotiBitPacket::Header EmotiBitPacket::createHeader(string typeTag, uint32_t timestamp, uint16_t packetNumber, uint16_t dataLength, uint16_t protocolVersion, uint16_t dataReliability)
+#endif
 {
 	EmotiBitPacket::Header header;
 	header.typeTag = typeTag;
