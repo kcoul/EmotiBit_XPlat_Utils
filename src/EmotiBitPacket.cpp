@@ -155,7 +155,8 @@ int16_t EmotiBitPacket::getHeader(const String & packet, Header &packetHeader)
 	return dataStartChar;
 }
 #else
-bool EmotiBitPacket::getHeader(vector<string> packet, Header &packetHeader) {
+bool EmotiBitPacket::getHeader(const vector<string>& packet, Header &packetHeader) 
+{
 
 	if (packet.size() >= EmotiBitPacket::Header::length) {
 

@@ -217,7 +217,7 @@ public:
 #ifdef ARDUINO
 	static int16_t getHeader(const String & packet, Header &packetHeader); // Returns position of data start character, FAIL if malformed
 #else
-	static bool getHeader(vector<string> packet, Header &packetHeader); // Returns false if the packet is malformed
+	static bool getHeader(const vector<string>& packet, Header &packetHeader); // Returns false if the packet is malformed
 #endif
 private:
 	
