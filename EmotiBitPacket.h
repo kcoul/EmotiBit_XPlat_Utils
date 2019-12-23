@@ -219,7 +219,7 @@ public:
   };
 	
   static const char PACKET_DELIMITER_CSV;
-	static const uint16_t MAX_TO_EMOTIBIT_PACKET_LEN;
+	static const uint16_t MAX_TO_EMOTIBIT_PACKET_LEN = 255;
 #ifdef ARDUINO
 	static const String TIMESTAMP_STRING_FORMAT;
 #else

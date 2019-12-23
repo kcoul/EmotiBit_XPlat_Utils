@@ -68,7 +68,6 @@ const char* const EmotiBitPacket::TypeTagGroups::USER_MESSAGES[nUserMessagesType
 //vector<string> EmotiBitPacket::TypeTag::APERIODIC.push_back(EmotiBitPacket::TypeTag::DATA_CLIPPING);
 
 const char EmotiBitPacket::PACKET_DELIMITER_CSV = '\n';
-const uint16_t MAX_TO_EMOTIBIT_PACKET_LEN = 255;
 #ifdef ARDUINO
 	const String EmotiBitPacket::TIMESTAMP_STRING_FORMAT = "%Y-%m-%d_%H-%M-%S-%f";
 #else
