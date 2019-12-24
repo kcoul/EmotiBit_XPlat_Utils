@@ -47,35 +47,17 @@ public:
 	
 	//Header header;
 #ifdef ARDUINO
-	static Header createHeader(String typeTag, uint32_t timestamp, uint16_t packetNumber, uint16_t dataLength = 0, uint16_t protocolVersion = 1, uint16_t dataReliability = 100);
+	static Header createHeader(String typeTag, uint32_t timestamp, uint16_t packetNumber, uint16_t dataLength = 0, uint8_t protocolVersion = 1, uint8_t dataReliability = 100);
 #else
-	static Header createHeader(string typeTag, uint32_t timestamp, uint16_t packetNumber, uint16_t dataLength = 0, uint16_t protocolVersion = 1, uint16_t dataReliability = 100);
+	static Header createHeader(string typeTag, uint32_t timestamp, uint16_t packetNumber, uint16_t dataLength = 0, uint8_t protocolVersion = 1, uint8_t dataReliability = 100);
 #endif
 
 #ifdef ARDUINO
-	static String headerToString(Header & header)
-	{
-		String headerString;
+	static String headerToString(Header & header;
 #else
-	static string headerToString(Header & header)
-	{
-		string headerString;
+	static string headerToString(Header & header);
 #endif
-		headerString = "";
-		headerString += header.timestamp;
-		headerString += ",";
-		headerString += header.packetNumber;
-		headerString += ",";
-		headerString += header.dataLength;
-		headerString += ",";
-		headerString += header.typeTag;
-		headerString += ",";
-		headerString += header.protocolVersion;
-		headerString += ",";
-		headerString += header.dataReliability;
-		//createPacketHeader(tempHeader, timestamp, typeTag, dataLen);
-		return headerString;
-	}
+
 
 	static const int8_t FAIL = -1;
 

@@ -1,5 +1,11 @@
 #include "EmotiBitPacket.h"
 
+#ifndef ARDUINO
+// ToDo: Remove OF dependency for ofToString()
+#include "ofMain.h"
+#endif // !ARDUINO
+
+
 // EmotiBit Data TagTypes
 const char* EmotiBitPacket::TypeTag::EDA = "EA\0";
 const char* EmotiBitPacket::TypeTag::EDL = "EL\0";
@@ -228,9 +234,9 @@ bool EmotiBitPacket::getHeader(const vector<string>& packet, Header &packetHeade
 #endif
 
 #ifdef ARDUINO
-EmotiBitPacket::Header EmotiBitPacket::createHeader(String typeTag, uint32_t timestamp, uint16_t packetNumber, uint16_t dataLength, uint16_t protocolVersion, uint16_t dataReliability)
+EmotiBitPacket::Header EmotiBitPacket::createHeader(String typeTag, uint32_t timestamp, uint16_t packetNumber, uint16_t dataLength, uint8_t protocolVersion, uint8_t dataReliability)
 #else
-EmotiBitPacket::Header EmotiBitPacket::createHeader(string typeTag, uint32_t timestamp, uint16_t packetNumber, uint16_t dataLength, uint16_t protocolVersion, uint16_t dataReliability)
+EmotiBitPacket::Header EmotiBitPacket::createHeader(string typeTag, uint32_t timestamp, uint16_t packetNumber, uint16_t dataLength, uint8_t protocolVersion, uint8_t dataReliability)
 #endif
 {
 	EmotiBitPacket::Header header;
@@ -242,4 +248,41 @@ EmotiBitPacket::Header EmotiBitPacket::createHeader(string typeTag, uint32_t tim
 	header.dataReliability = dataReliability;
 
 	return header;
+}
+
+#ifdef ARDUINO
+String EmotiBitPacket::headerToString(Header & header)
+{
+	String headerString;
+	headerString = "";
+	headerString += header.timestamp;
+	headerString += ",";
+	headerString += header.packetNumber;
+	headerString += ",";
+	headerString += header.dataLength;
+	headerString += ",";
+	headerString += header.typeTag;
+	headerString += ",";
+	headerString += header.protocolVersion;
+	headerString += ",";
+	headerString += header.dataReliability;
+#else
+string EmotiBitPacket::headerToString(Header & header)
+{
+	string headerString;
+	headerString = "";
+	headerString += ofToString(header.timestamp);
+	headerString += ",";
+	headerString += ofToString(header.packetNumber);
+	headerString += ",";
+	headerString += ofToString(header.dataLength);
+	headerString += ",";
+	headerString += ofToString(header.typeTag);
+	headerString += ",";
+	headerString += ofToString((int)header.protocolVersion);
+	headerString += ",";
+	headerString += ofToString((int)header.dataReliability);
+#endif
+	//createPacketHeader(tempHeader, timestamp, typeTag, dataLen);
+	return headerString;
 }
