@@ -136,10 +136,10 @@ int16_t EmotiBitPacket::getHeader(const String & packet, Header &packetHeader)
 {
 	//ToDo: Add malformed packet checks
 
-	uint16_t dataStartChar = 0;
+	int16_t dataStartChar = 0;
 
-	uint16_t commaN;
-	uint16_t commaN1;
+	int16_t commaN;
+	int16_t commaN1;
 	// timestamp
 	commaN = 0;
 	commaN1 = packet.indexOf(',', commaN);
@@ -163,9 +163,18 @@ int16_t EmotiBitPacket::getHeader(const String & packet, Header &packetHeader)
 	// data_reliability
 	commaN = commaN1 + 1;
 	commaN1 = packet.indexOf(',', commaN);
+	if (commaN1 < 0) 
+	{
+		// handle case when no ,[data] exists
+		commaN1 = packet.length();
+		dataStartChar = -1;
+	}
+	else
+	{
+		//dataStartChar = 11111;
+		dataStartChar = commaN1 + 1;
+	}
 	packetHeader.dataReliability = packet.substring(commaN, commaN1).toInt();
-	// data payload
-	dataStartChar = commaN1 + 1;
 
 	return dataStartChar;
 }
