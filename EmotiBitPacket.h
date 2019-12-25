@@ -53,7 +53,7 @@ public:
 #endif
 
 #ifdef ARDUINO
-	static String headerToString(Header & header;
+	static String headerToString(Header & header);
 #else
 	static string headerToString(Header & header);
 #endif
