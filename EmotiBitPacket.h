@@ -44,6 +44,7 @@ public:
 
 	static const uint8_t headerLength = 6;
 	static const uint8_t headerByteLength = 12;
+	static const uint8_t maxHeaderCharLength = 35; // 13+(1)+5+(1)+3+(1)+2+(1)+3+(1)+3+(1)
 	
 	//Header header;
 #ifdef ARDUINO
