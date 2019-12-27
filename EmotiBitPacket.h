@@ -1,15 +1,15 @@
 #pragma once
 
-#include <String.h>
-
 //#define ARDUINO
 #ifdef ARDUINO
+	#include <String.h>
   #include <WString.h>
   #include <stdint.h>
 #else
   #include <string>
   #include <vector>
   #include <iostream>
+	#include "ArduinoString.h"
   using namespace std;
 	using namespace EmotiBit;
 #endif

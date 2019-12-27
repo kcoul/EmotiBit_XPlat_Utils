@@ -134,7 +134,7 @@ const char* const EmotiBitPacket::TypeTagGroups::USER_MESSAGES[nUserMessagesType
 	//typeTags[PacketType::PONG] = EmotiBitPacket::TypeTag::PONG;
 //}
 
-#ifdef ARDUINO
+
 int16_t EmotiBitPacket::getHeader(const String & packet, Header &packetHeader) 
 {
 	//ToDo: Add malformed packet checks
@@ -158,7 +158,12 @@ int16_t EmotiBitPacket::getHeader(const String & packet, Header &packetHeader)
 	// typetag
 	commaN = commaN1 + 1;
 	commaN1 = packet.indexOf(',', commaN);
+#ifdef ARDUINO
+	// ToDo: Handle string = String more gracefully
 	packetHeader.typeTag = packet.substring(commaN, commaN1);
+#else
+	packetHeader.typeTag = packet.substring(commaN, commaN1).str;
+#endif
 	// protocol_version
 	commaN = commaN1 + 1;
 	commaN1 = packet.indexOf(',', commaN);
@@ -181,7 +186,7 @@ int16_t EmotiBitPacket::getHeader(const String & packet, Header &packetHeader)
 
 	return dataStartChar;
 }
-#else
+#ifndef ARDUINO
 bool EmotiBitPacket::getHeader(const vector<string>& packet, Header &packetHeader) 
 {
 
