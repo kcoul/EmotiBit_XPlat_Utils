@@ -136,7 +136,8 @@ public:
 
 	//static const char* typeTags[]; // Iterable reference to all typeTags
 
-	class TypeTag {
+	class TypeTag 
+	{
 	public:
 		static const char* EDA;
 		static const char* EDL;
@@ -184,8 +185,7 @@ public:
 		//static const char* HELLO_COMPUTER;
 		static const char* EMOTIBIT_CONNECT;
 		static const char* EMOTIBIT_DISCONNECT;
-		static const char* CONTROL_PORT;
-		static const char* KEEP_ALIVE;
+		//static const char* KEEP_ALIVE;
 		static const char* ACK;
 		static const char* REQUEST_DATA;
 		static const char* PING;
@@ -195,11 +195,19 @@ public:
 //        static vector<string> APERIODIC;
 	};
     
-  class TypeTagGroups{
+  class TypeTagGroups
+	{
   public:
       static const char* const APERIODIC[];
       static const char* const USER_MESSAGES[];
   };
+
+	class PayloadLabel
+	{
+	public:
+		static const char* CONTROL_PORT;
+		static const char* DATA_PORT;
+	};
 	
   static const char PACKET_DELIMITER_CSV = '\n';
 	static const uint16_t MAX_TO_EMOTIBIT_PACKET_LEN = 255;
@@ -214,6 +222,7 @@ public:
 	
 #ifdef ARDUINO
 	static int16_t getHeader(const String & packet, Header &packetHeader); // Returns position of data start character, FAIL if malformed
+	static int16_t getPacketElement(const String& packet, String& element, uint16_t startChar = 0);
 #else
 	static bool getHeader(const vector<string>& packet, Header &packetHeader); // Returns false if the packet is malformed
 #endif

@@ -56,13 +56,15 @@ const char* EmotiBitPacket::TypeTag::MODE_HIBERNATE = "MH\0";				// Full shutdow
 const char* EmotiBitPacket::TypeTag::PING = "PI\0";
 const char* EmotiBitPacket::TypeTag::PONG = "PO\0";
 const char* EmotiBitPacket::TypeTag::EMOTIBIT_DISCONNECT = "ED\0";
-const char* EmotiBitPacket::TypeTag::KEEP_ALIVE = "KA\0";
+//const char* EmotiBitPacket::TypeTag::KEEP_ALIVE = "KA\0";
 // Advertising TypeTags
 const char* EmotiBitPacket::TypeTag::HELLO_EMOTIBIT = "HE\0";
 const char* EmotiBitPacket::TypeTag::HELLO_HOST = "HH\0";
 //const char* EmotiBitPacket::TypeTag::HELLO_COMPUTER = "HC\0";
-const char* EmotiBitPacket::TypeTag::CONTROL_PORT = "CP\0";
 const char* EmotiBitPacket::TypeTag::EMOTIBIT_CONNECT = "EC\0";
+
+const char* EmotiBitPacket::PayloadLabel::CONTROL_PORT = "CP\0";
+const char* EmotiBitPacket::PayloadLabel::DATA_PORT = "DP\0";
 
 
 const uint8_t nAperiodicTypeTags = 2;
@@ -294,3 +296,32 @@ string EmotiBitPacket::headerToString(Header & header)
 	//createPacketHeader(tempHeader, timestamp, typeTag, dataLen);
 	return headerString;
 }
+
+#ifdef ARDUINO
+/// Extracts a single packet element from the passed packet string
+/// @param packet is the string parsed for the next element
+/// @param element is filled with the extracted element
+/// @return startChar of the next element or -1 if no following packet exists
+int16_t EmotiBitPacket::getPacketElement(const String& packet, String& element, uint16_t startChar)
+{
+	int16_t nextStartChar = -1;
+
+	int16_t commaN1 = packet.indexOf(',', startChar);
+
+	if (commaN1 != -1) 
+	{
+		// A following comma was found, extract element
+		element = packet.substring(startChar, commaN1);
+		if (packet.length() > commaN1 + 1)
+		{
+			nextStartChar = commaN1 + 1;
+		}
+	}
+	else if (packet.length() > startChar + 1)
+	{
+		// No following comma was found, return final element of packet
+		element = packet.substring(startChar, packet.length());
+	}
+	return nextStartChar;
+}
+#endif
