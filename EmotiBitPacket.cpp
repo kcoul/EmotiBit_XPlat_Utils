@@ -1,9 +1,10 @@
 #include "EmotiBitPacket.h"
 
-#ifndef ARDUINO
-// ToDo: Remove OF dependency for ofToString()
-#include "ofMain.h"
-
+#ifdef ARDUINO
+	#include <Arduino.h>
+#else
+	// ToDo: Remove OF dependency for ofToString()
+	#include "ofMain.h"
 #endif // !ARDUINO
 
 

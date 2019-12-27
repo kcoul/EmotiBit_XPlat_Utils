@@ -245,10 +245,10 @@ public:
 
 
 #ifdef ARDUINO
-	static String EmotiBitPacket::createPacket(const String &typeTag, const uint16_t &packetNumber, const String &data, const uint16_t &dataLength, const uint8_t &protocolVersion = 1, const uint8_t& dataReliability = 100);
+	static String createPacket(const String &typeTag, const uint16_t &packetNumber, const String &data, const uint16_t &dataLength, const uint8_t &protocolVersion = 1, const uint8_t& dataReliability = 100);
 #else
-	static string EmotiBitPacket::createPacket(const string &typeTag, const uint16_t &packetNumber, const string &data, const uint16_t &dataLength, const uint8_t &protocolVersion = 1, const uint8_t& dataReliability = 100);
-	static string EmotiBitPacket::createPacket(const string & typeTag, const uint16_t &packetNumber, const vector<string> & data, const uint8_t &protocolVersion = 1, const uint8_t &dataReliability = 100);
+	static string createPacket(const string &typeTag, const uint16_t &packetNumber, const string &data, const uint16_t &dataLength, const uint8_t &protocolVersion = 1, const uint8_t& dataReliability = 100);
+	static string createPacket(const string & typeTag, const uint16_t &packetNumber, const vector<string> & data, const uint8_t &protocolVersion = 1, const uint8_t &dataReliability = 100);
 #endif
 private:
 	
