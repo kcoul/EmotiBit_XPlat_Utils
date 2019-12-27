@@ -3,6 +3,7 @@
 #ifndef ARDUINO
 // ToDo: Remove OF dependency for ofToString()
 #include "ofMain.h"
+
 #endif // !ARDUINO
 
 
@@ -297,7 +298,7 @@ string EmotiBitPacket::headerToString(Header & header)
 	return headerString;
 }
 
-#ifdef ARDUINO
+
 
 int16_t EmotiBitPacket::getPacketElement(const String& packet, String& element, uint16_t startChar)
 {
@@ -322,7 +323,7 @@ int16_t EmotiBitPacket::getPacketElement(const String& packet, String& element, 
 	return nextStartChar;
 }
 
-static int16_t EmotiBitPacket::getPacketKeyedValue(const String &packet, const String &key, String &value, uint16_t startChar = 0)
+int16_t EmotiBitPacket::getPacketKeyedValue(const String &packet, const String &key, String &value, uint16_t startChar)
 {
 	String element;
 	do
@@ -340,24 +341,40 @@ static int16_t EmotiBitPacket::getPacketKeyedValue(const String &packet, const S
 
 	return -1;	// return -1 if we hit the end of the packet before finding key
 }
-#endif
 
 #ifdef ARDUINO
-String EmotiBitPacket::createPacket(const String &typeTag, const uint16_t &packetNumber, const String &data, const uint16_t &dataLength, cosnt uint8_t& protocolVersion, const uint8_t& dataReliability)
+String EmotiBitPacket::createPacket(const String &typeTag, const uint16_t &packetNumber, const String &data, const uint16_t &dataLength, const uint8_t& protocolVersion, const uint8_t& dataReliability)
 {
 	// ToDo: Generalize createPacket to work across more platforms inside EmotiBitPacket
 	EmotiBitPacket::Header header = EmotiBitPacket::createHeader(typeTag, millis(), packetNumber, dataLength, protocolVersion, dataReliability);
 	return EmotiBitPacket::headerToString(header) + data + EmotiBitPacket::PACKET_DELIMITER_CSV;
 }
 #else
-string EmotiBitPacket::createPacket(const string &typeTag, const uint16_t &packetNumber, const string &data, const uint16_t &dataLength, cosnt uint8_t& protocolVersion, const uint8_t& dataReliability)
+int16_t EmotiBitPacket::getPacketElement(const string &packet, string &element, uint16_t startChar)
+{
+	// ToDo: try out a more passthrough approach to overloading
+	String elementS(element);
+	int16_t pos = getPacketElement(String(packet), elementS, startChar);
+	element = elementS.str;
+	return pos;
+}
+int16_t EmotiBitPacket::getPacketKeyedValue(const string &packet, const string &key, string &value, uint16_t startChar)
+{
+	// ToDo: try out a more passthrough approach to overloading
+	String valueS(value);
+	int16_t pos = getPacketKeyedValue(String(packet), String(key), valueS, startChar);
+	value = valueS.str;
+	return pos;
+}
+
+string EmotiBitPacket::createPacket(const string &typeTag, const uint16_t &packetNumber, const string &data, const uint16_t &dataLength, const uint8_t& protocolVersion, const uint8_t& dataReliability)
 {
 	// ToDo: Generalize createPacket to work across more platforms inside EmotiBitPacket
 	EmotiBitPacket::Header header = EmotiBitPacket::createHeader(typeTag, ofGetElapsedTimeMillis(), packetNumber, dataLength, protocolVersion, dataReliability);
 	return EmotiBitPacket::headerToString(header) + data + EmotiBitPacket::PACKET_DELIMITER_CSV;
 }
 
-string EmotiBitPacket::createPacket(const string & typeTag, const uint16_t &packetNumber, const vector<string> & data, uint8_t protocolVersion, uint8_t dataReliability)
+string EmotiBitPacket::createPacket(const string &typeTag, const uint16_t &packetNumber, const vector<string> & data, const uint8_t &protocolVersion, const uint8_t &dataReliability)
 {
 	// ToDo: Template data vector
 	// ToDo: Generalize createPacket to work across more platforms inside EmotiBitPacket

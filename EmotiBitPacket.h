@@ -1,16 +1,17 @@
 #pragma once
 
-//#define ARDUINO
+#include <String.h>
 
-#ifndef ARDUINO
+//#define ARDUINO
+#ifdef ARDUINO
+  #include <WString.h>
+  #include <stdint.h>
+#else
   #include <string>
   #include <vector>
   #include <iostream>
   using namespace std;
-#else
-  #include <String.h>
-  #include <WString.h>
-  #include <stdint.h>
+	using namespace EmotiBit;
 #endif
 
 
@@ -220,7 +221,7 @@ public:
 	EmotiBitPacket();
 
 	
-#ifdef ARDUINO
+
 	static int16_t getHeader(const String & packet, Header &packetHeader); // Returns position of data start character, FAIL if malformed
 	
 	/// Extracts a single packet element from the passed packet string
@@ -236,16 +237,18 @@ public:
 	/// @return startChar of the value element or -1 if no key/value exists
 	static int16_t getPacketKeyedValue(const String &packet, const String &key, String &value, uint16_t startChar = 0);
 
-#else
+#ifndef ARDUINO
 	static bool getHeader(const vector<string>& packet, Header &packetHeader); // Returns false if the packet is malformed
+	static int16_t getPacketElement(const string &packet, string &element, uint16_t startChar = 0);
+	static int16_t getPacketKeyedValue(const string &packet, const string &key, string &value, uint16_t startChar = 0);
 #endif
 
 
 #ifdef ARDUINO
-	String EmotiBitPacket::createPacket(const String &typeTag, const uint16_t &packetNumber, const String &data, const uint16_t &dataLength, const uint8_t &protocolVersion = 1, const uint8_t& dataReliability = 100);
+	static String EmotiBitPacket::createPacket(const String &typeTag, const uint16_t &packetNumber, const String &data, const uint16_t &dataLength, const uint8_t &protocolVersion = 1, const uint8_t& dataReliability = 100);
 #else
-	string EmotiBitPacket::createPacket(const string &typeTag, const uint16_t &packetNumber, const string &data, const uint16_t &dataLength, const uint8_t &protocolVersion = 1, const uint8_t& dataReliability = 100);
-	string EmotiBitPacket::createPacket(const string & typeTag, const uint16_t &packetNumber, const vector<string> & data, uint8_t protocolVersion = 1, uint8_t dataReliability = 100);
+	static string EmotiBitPacket::createPacket(const string &typeTag, const uint16_t &packetNumber, const string &data, const uint16_t &dataLength, const uint8_t &protocolVersion = 1, const uint8_t& dataReliability = 100);
+	static string EmotiBitPacket::createPacket(const string & typeTag, const uint16_t &packetNumber, const vector<string> & data, const uint8_t &protocolVersion = 1, const uint8_t &dataReliability = 100);
 #endif
 private:
 	
