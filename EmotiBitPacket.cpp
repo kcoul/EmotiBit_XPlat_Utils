@@ -298,10 +298,7 @@ string EmotiBitPacket::headerToString(Header & header)
 }
 
 #ifdef ARDUINO
-/// Extracts a single packet element from the passed packet string
-/// @param packet is the string parsed for the next element
-/// @param element is filled with the extracted element
-/// @return startChar of the next element or -1 if no following packet exists
+
 int16_t EmotiBitPacket::getPacketElement(const String& packet, String& element, uint16_t startChar)
 {
 	int16_t nextStartChar = -1;
@@ -323,5 +320,54 @@ int16_t EmotiBitPacket::getPacketElement(const String& packet, String& element, 
 		element = packet.substring(startChar, packet.length());
 	}
 	return nextStartChar;
+}
+
+static int16_t EmotiBitPacket::getPacketKeyedValue(const String &packet, const String &key, String &value, uint16_t startChar = 0)
+{
+	String element;
+	do
+	{
+		startChar = EmotiBitPacket::getPacketElement(packet, element, startChar);
+		if (element.equals(key))
+		{
+			EmotiBitPacket::getPacketElement(packet, value, startChar);
+			if (value.length() > 0) {
+				return startChar;
+			}
+			return -1;	// return -1 if we hit the end of the packet before finding a value
+		}
+	} while (startChar > -1);
+
+	return -1;	// return -1 if we hit the end of the packet before finding key
+}
+#endif
+
+#ifdef ARDUINO
+String EmotiBitPacket::createPacket(const String &typeTag, const uint16_t &packetNumber, const String &data, const uint16_t &dataLength, cosnt uint8_t& protocolVersion, const uint8_t& dataReliability)
+{
+	// ToDo: Generalize createPacket to work across more platforms inside EmotiBitPacket
+	EmotiBitPacket::Header header = EmotiBitPacket::createHeader(typeTag, millis(), packetNumber, dataLength, protocolVersion, dataReliability);
+	return EmotiBitPacket::headerToString(header) + data + EmotiBitPacket::PACKET_DELIMITER_CSV;
+}
+#else
+string EmotiBitPacket::createPacket(const string &typeTag, const uint16_t &packetNumber, const string &data, const uint16_t &dataLength, cosnt uint8_t& protocolVersion, const uint8_t& dataReliability)
+{
+	// ToDo: Generalize createPacket to work across more platforms inside EmotiBitPacket
+	EmotiBitPacket::Header header = EmotiBitPacket::createHeader(typeTag, ofGetElapsedTimeMillis(), packetNumber, dataLength, protocolVersion, dataReliability);
+	return EmotiBitPacket::headerToString(header) + data + EmotiBitPacket::PACKET_DELIMITER_CSV;
+}
+
+string EmotiBitPacket::createPacket(const string & typeTag, const uint16_t &packetNumber, const vector<string> & data, uint8_t protocolVersion, uint8_t dataReliability)
+{
+	// ToDo: Template data vector
+	// ToDo: Generalize createPacket to work across more platforms inside EmotiBitPacket
+	EmotiBitPacket::Header header = EmotiBitPacket::createHeader(typeTag, ofGetElapsedTimeMillis(), packetNumber, data.size(), protocolVersion, dataReliability);
+	string packet = EmotiBitPacket::headerToString(header);
+	for (string s : data)
+	{
+		packet += "," + s;
+	}
+	packet += EmotiBitPacket::PACKET_DELIMITER_CSV;
+	return packet;
 }
 #endif

@@ -222,9 +222,30 @@ public:
 	
 #ifdef ARDUINO
 	static int16_t getHeader(const String & packet, Header &packetHeader); // Returns position of data start character, FAIL if malformed
-	static int16_t getPacketElement(const String& packet, String& element, uint16_t startChar = 0);
+	
+	/// Extracts a single packet element from the passed packet string
+	/// @param packet is the string parsed for the next element
+	/// @param element is filled with the extracted element
+	/// @return startChar of the next element or -1 if no following packet exists
+	static int16_t getPacketElement(const String &packet, String &element, uint16_t startChar = 0);
+
+	/// Extracts a value packet element following the key packet element
+	/// @param packet is the string parsed for packet elements
+	/// @param key to search for in the packet
+	/// @param value is filled with the extracted element
+	/// @return startChar of the value element or -1 if no key/value exists
+	static int16_t getPacketKeyedValue(const String &packet, const String &key, String &value, uint16_t startChar = 0);
+
 #else
 	static bool getHeader(const vector<string>& packet, Header &packetHeader); // Returns false if the packet is malformed
+#endif
+
+
+#ifdef ARDUINO
+	String EmotiBitPacket::createPacket(const String &typeTag, const uint16_t &packetNumber, const String &data, const uint16_t &dataLength, const uint8_t &protocolVersion = 1, const uint8_t& dataReliability = 100);
+#else
+	string EmotiBitPacket::createPacket(const string &typeTag, const uint16_t &packetNumber, const string &data, const uint16_t &dataLength, const uint8_t &protocolVersion = 1, const uint8_t& dataReliability = 100);
+	string EmotiBitPacket::createPacket(const string & typeTag, const uint16_t &packetNumber, const vector<string> & data, uint8_t protocolVersion = 1, uint8_t dataReliability = 100);
 #endif
 private:
 	
