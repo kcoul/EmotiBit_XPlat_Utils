@@ -42,7 +42,7 @@ const char* EmotiBitPacket::TypeTag::TIMESTAMP_UTC = "TU\0";
 const char* EmotiBitPacket::TypeTag::TIMESTAMP_CROSS_TIME = "TX\0";
 const char* EmotiBitPacket::TypeTag::EMOTIBIT_MODE = "EM\0";
 const char* EmotiBitPacket::TypeTag::EMOTIBIT_INFO = "EI\0";
-// Computer data TypeTags
+// Computer data TypeTags (sent over reliable channel e.g. Control)
 const char* EmotiBitPacket::TypeTag::GPS_LATLNG = "GL\0";
 const char* EmotiBitPacket::TypeTag::GPS_SPEED = "GS\0";
 const char* EmotiBitPacket::TypeTag::GPS_BEARING = "GB\0";
@@ -55,14 +55,12 @@ const char* EmotiBitPacket::TypeTag::RECORD_END = "RE\0";
 const char* EmotiBitPacket::TypeTag::MODE_LOW_POWER = "ML\0";				// Stops sending data timestamping should be accurate
 const char* EmotiBitPacket::TypeTag::MODE_MAX_LOW_POWER = "MM\0";		// Stops sending data timestamping accuracy drops
 const char* EmotiBitPacket::TypeTag::MODE_HIBERNATE = "MH\0";				// Full shutdown of all operation
+const char* EmotiBitPacket::TypeTag::EMOTIBIT_DISCONNECT = "ED\0";
+// Advertising TypeTags
 const char* EmotiBitPacket::TypeTag::PING = "PI\0";
 const char* EmotiBitPacket::TypeTag::PONG = "PO\0";
-const char* EmotiBitPacket::TypeTag::EMOTIBIT_DISCONNECT = "ED\0";
-//const char* EmotiBitPacket::TypeTag::KEEP_ALIVE = "KA\0";
-// Advertising TypeTags
 const char* EmotiBitPacket::TypeTag::HELLO_EMOTIBIT = "HE\0";
 const char* EmotiBitPacket::TypeTag::HELLO_HOST = "HH\0";
-//const char* EmotiBitPacket::TypeTag::HELLO_COMPUTER = "HC\0";
 const char* EmotiBitPacket::TypeTag::EMOTIBIT_CONNECT = "EC\0";
 
 const char* EmotiBitPacket::PayloadLabel::CONTROL_PORT = "CP\0";
@@ -353,7 +351,7 @@ String EmotiBitPacket::createPacket(const String &typeTag, const uint16_t &packe
 {
 	// ToDo: Generalize createPacket to work across more platforms inside EmotiBitPacket
 	EmotiBitPacket::Header header = EmotiBitPacket::createHeader(typeTag, millis(), packetNumber, dataLength, protocolVersion, dataReliability);
-	return EmotiBitPacket::headerToString(header) + data + EmotiBitPacket::PACKET_DELIMITER_CSV;
+	return EmotiBitPacket::headerToString(header) + "," + data + EmotiBitPacket::PACKET_DELIMITER_CSV;
 }
 #else
 int16_t EmotiBitPacket::getPacketElement(const string &packet, string &element, uint16_t startChar)
@@ -377,7 +375,7 @@ string EmotiBitPacket::createPacket(const string &typeTag, const uint16_t &packe
 {
 	// ToDo: Generalize createPacket to work across more platforms inside EmotiBitPacket
 	EmotiBitPacket::Header header = EmotiBitPacket::createHeader(typeTag, ofGetElapsedTimeMillis(), packetNumber, dataLength, protocolVersion, dataReliability);
-	return EmotiBitPacket::headerToString(header) + data + EmotiBitPacket::PACKET_DELIMITER_CSV;
+	return EmotiBitPacket::headerToString(header) + "," + data + EmotiBitPacket::PACKET_DELIMITER_CSV;
 }
 
 string EmotiBitPacket::createPacket(const string &typeTag, const uint16_t &packetNumber, const vector<string> & data, const uint8_t &protocolVersion, const uint8_t &dataReliability)
