@@ -135,8 +135,6 @@ const char* const EmotiBitPacket::TypeTagGroups::USER_MESSAGES[nUserMessagesType
 
 int16_t EmotiBitPacket::getHeader(const String & packet, Header &packetHeader) 
 {
-	//ToDo: Add malformed packet checks
-
 	int16_t dataStartChar = 0;
 
 	int16_t commaN;
@@ -144,18 +142,22 @@ int16_t EmotiBitPacket::getHeader(const String & packet, Header &packetHeader)
 	// timestamp
 	commaN = 0;
 	commaN1 = packet.indexOf(',', commaN);
+	if (commaN1 == -1) return MALFORMED_HEADER;
 	packetHeader.timestamp = packet.substring(commaN, commaN1).toInt();
 	// packet_number
 	commaN = commaN1 + 1;
 	commaN1 = packet.indexOf(',', commaN);
+	if (commaN1 == -1) return MALFORMED_HEADER;
 	packetHeader.packetNumber = packet.substring(commaN, commaN1).toInt();
 	// data_length
 	commaN = commaN1 + 1;
 	commaN1 = packet.indexOf(',', commaN);
+	if (commaN1 == -1) return MALFORMED_HEADER;
 	packetHeader.dataLength = packet.substring(commaN, commaN1).toInt();
 	// typetag
 	commaN = commaN1 + 1;
 	commaN1 = packet.indexOf(',', commaN);
+	if (commaN1 == -1) return MALFORMED_HEADER;
 #ifdef ARDUINO
 	// ToDo: Handle string = String more gracefully
 	packetHeader.typeTag = packet.substring(commaN, commaN1);
@@ -165,15 +167,16 @@ int16_t EmotiBitPacket::getHeader(const String & packet, Header &packetHeader)
 	// protocol_version
 	commaN = commaN1 + 1;
 	commaN1 = packet.indexOf(',', commaN);
+	if (commaN1 == -1) return MALFORMED_HEADER;
 	packetHeader.protocolVersion = packet.substring(commaN, commaN1).toInt();
 	// data_reliability
 	commaN = commaN1 + 1;
 	commaN1 = packet.indexOf(',', commaN);
-	if (commaN1 < 0) 
+	if (commaN1 == -1) 
 	{
 		// handle case when no ,[data] exists
 		commaN1 = packet.length();
-		dataStartChar = -1;
+		dataStartChar = NO_PACKET_DATA;
 	}
 	else
 	{
@@ -375,7 +378,14 @@ string EmotiBitPacket::createPacket(const string &typeTag, const uint16_t &packe
 {
 	// ToDo: Generalize createPacket to work across more platforms inside EmotiBitPacket
 	EmotiBitPacket::Header header = EmotiBitPacket::createHeader(typeTag, ofGetElapsedTimeMillis(), packetNumber, dataLength, protocolVersion, dataReliability);
-	return EmotiBitPacket::headerToString(header) + "," + data + EmotiBitPacket::PACKET_DELIMITER_CSV;
+	if (dataLength == 0)
+	{
+		return EmotiBitPacket::headerToString(header) + EmotiBitPacket::PACKET_DELIMITER_CSV;
+	}
+	else
+	{
+		return EmotiBitPacket::headerToString(header) + "," + data + EmotiBitPacket::PACKET_DELIMITER_CSV;
+	}
 }
 
 string EmotiBitPacket::createPacket(const string &typeTag, const uint16_t &packetNumber, const vector<string> & data, const uint8_t &protocolVersion, const uint8_t &dataReliability)

@@ -62,6 +62,8 @@ public:
 
 
 	static const int8_t FAIL = -1;
+	static const int16_t NO_PACKET_DATA = -2;
+	static const int16_t MALFORMED_HEADER = -3;
 
 
 #ifdef ARDUINO
