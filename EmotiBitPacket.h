@@ -97,7 +97,7 @@ public:
 		PPG_RED,	// PPG Red
 		PPG_GREEN,	// PPG Green
 		TEMPERATURE_0,	// Temperature 0
-		THERMISTOR,	// Thermistor
+		THERMOPILE,	// Thermistor
 		HUMIDITY_0,	// Humidity 0
 		ACCELEROMETER_X,	// Accelerometer X-axis
 		ACCELEROMETER_Y,	// Accelerometer Y-axis
