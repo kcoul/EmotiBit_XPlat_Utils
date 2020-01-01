@@ -150,7 +150,7 @@ public:
 		static const char* PPG_GREEN;
 		static const char* TEMPERATURE_0;
     static const char* TEMPERATURE_1;
-		static const char* THERMISTOR;
+		static const char* THERMOPILE;
 		static const char* HUMIDITY_0;
 		static const char* ACCELEROMETER_X;
 		static const char* ACCELEROMETER_Y;
@@ -180,8 +180,10 @@ public:
 		static const char* RECORD_BEGIN;
 		static const char* RECORD_END;
 		static const char* USER_NOTE;
+		static const char* MODE_NORMAL_POWER;
 		static const char* MODE_LOW_POWER;
 		static const char* MODE_MAX_LOW_POWER;
+		static const char* MODE_WIRELESS_OFF;
 		static const char* MODE_HIBERNATE;
 		static const char* HELLO_EMOTIBIT;
 		static const char* HELLO_HOST;
