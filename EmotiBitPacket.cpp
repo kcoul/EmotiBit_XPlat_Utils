@@ -68,7 +68,7 @@ const char* EmotiBitPacket::TypeTag::EMOTIBIT_CONNECT = "EC\0";
 const char* EmotiBitPacket::PayloadLabel::CONTROL_PORT = "CP\0";
 const char* EmotiBitPacket::PayloadLabel::DATA_PORT = "DP\0";
 const char* EmotiBitPacket::PayloadLabel::RECORDING_STATUS = "RS\0";
-const char* EmotiBitPacket::PayloadLabel::POWER_MODE = "PM\0";
+const char* EmotiBitPacket::PayloadLabel::POWER_STATUS = "PS\0";
 
 
 const uint8_t nAperiodicTypeTags = 2;
@@ -376,6 +376,19 @@ int16_t EmotiBitPacket::getPacketKeyedValue(const string &packet, const string &
 	int16_t pos = getPacketKeyedValue(String(packet), String(key), valueS, startChar);
 	value = valueS.str;
 	return pos;
+}
+int16_t EmotiBitPacket::getPacketKeyedValue(const vector<string> &splitPacket, const string &key, string &value, uint16_t startIndex)
+{
+	for (size_t i = startIndex; i < splitPacket.size(); i++)
+	{
+		if (key.compare(splitPacket.at(i)) == 0)
+		{
+			i++;
+			value = splitPacket.at(i);
+			return i;
+		}
+	}
+	return -1;
 }
 
 string EmotiBitPacket::createPacket(const string &typeTag, const uint16_t &packetNumber, const string &data, const uint16_t &dataLength, const uint8_t& protocolVersion, const uint8_t& dataReliability)

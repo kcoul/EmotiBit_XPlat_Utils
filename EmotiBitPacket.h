@@ -213,7 +213,7 @@ public:
 		static const char* CONTROL_PORT;
 		static const char* DATA_PORT;
 		static const char* RECORDING_STATUS;
-		static const char* POWER_MODE;
+		static const char* POWER_STATUS;
 	};
 	
   static const char PACKET_DELIMITER_CSV = '\n';
@@ -247,6 +247,8 @@ public:
 	static bool getHeader(const vector<string>& packet, Header &packetHeader); // Returns false if the packet is malformed
 	static int16_t getPacketElement(const string &packet, string &element, uint16_t startChar = 0);
 	static int16_t getPacketKeyedValue(const string &packet, const string &key, string &value, uint16_t startChar = 0);
+	static int16_t getPacketKeyedValue(const vector<string> &splitPacket, const string &key, string &value, 
+		uint16_t startIndex = EmotiBitPacket::headerLength);
 #endif
 
 
@@ -255,6 +257,7 @@ public:
 #else
 	static string createPacket(const string &typeTag, const uint16_t &packetNumber, const string &data, const uint16_t &dataLength, const uint8_t &protocolVersion = 1, const uint8_t &dataReliability = 100);
 	static string createPacket(const string &typeTag, const uint16_t &packetNumber, const vector<string> &data, const uint8_t &protocolVersion = 1, const uint8_t &dataReliability = 100);
+	
 #endif
 private:
 	
