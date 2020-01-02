@@ -67,6 +67,8 @@ const char* EmotiBitPacket::TypeTag::EMOTIBIT_CONNECT = "EC\0";
 
 const char* EmotiBitPacket::PayloadLabel::CONTROL_PORT = "CP\0";
 const char* EmotiBitPacket::PayloadLabel::DATA_PORT = "DP\0";
+const char* EmotiBitPacket::PayloadLabel::RECORDING_STATUS = "RS\0";
+const char* EmotiBitPacket::PayloadLabel::POWER_MODE = "PM\0";
 
 
 const uint8_t nAperiodicTypeTags = 2;

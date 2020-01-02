@@ -212,6 +212,8 @@ public:
 	public:
 		static const char* CONTROL_PORT;
 		static const char* DATA_PORT;
+		static const char* RECORDING_STATUS;
+		static const char* POWER_MODE;
 	};
 	
   static const char PACKET_DELIMITER_CSV = '\n';
