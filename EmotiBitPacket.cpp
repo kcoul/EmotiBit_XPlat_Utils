@@ -135,7 +135,7 @@ const char* const EmotiBitPacket::TypeTagGroups::USER_MESSAGES[nUserMessagesType
 //}
 
 
-int16_t EmotiBitPacket::getHeader(const String & packet, Header &packetHeader) 
+int16_t EmotiBitPacket::getHeader(const String &packet, Header &packetHeader) 
 {
 	int16_t dataStartChar = 0;
 
@@ -254,9 +254,9 @@ bool EmotiBitPacket::getHeader(const vector<string>& packet, Header &packetHeade
 #endif
 
 #ifdef ARDUINO
-EmotiBitPacket::Header EmotiBitPacket::createHeader(String typeTag, uint32_t timestamp, uint16_t packetNumber, uint16_t dataLength, uint8_t protocolVersion, uint8_t dataReliability)
+EmotiBitPacket::Header EmotiBitPacket::createHeader(const String &typeTag, uint32_t timestamp, uint16_t packetNumber, uint16_t dataLength, uint8_t protocolVersion, uint8_t dataReliability)
 #else
-EmotiBitPacket::Header EmotiBitPacket::createHeader(string typeTag, uint32_t timestamp, uint16_t packetNumber, uint16_t dataLength, uint8_t protocolVersion, uint8_t dataReliability)
+EmotiBitPacket::Header EmotiBitPacket::createHeader(const string &typeTag, uint32_t timestamp, uint16_t packetNumber, uint16_t dataLength, uint8_t protocolVersion, uint8_t dataReliability)
 #endif
 {
 	EmotiBitPacket::Header header;
@@ -271,7 +271,7 @@ EmotiBitPacket::Header EmotiBitPacket::createHeader(string typeTag, uint32_t tim
 }
 
 #ifdef ARDUINO
-String EmotiBitPacket::headerToString(Header & header)
+String EmotiBitPacket::headerToString(const Header &header)
 {
 	String headerString;
 	headerString = "";
@@ -287,7 +287,7 @@ String EmotiBitPacket::headerToString(Header & header)
 	headerString += ",";
 	headerString += header.dataReliability;
 #else
-string EmotiBitPacket::headerToString(Header & header)
+string EmotiBitPacket::headerToString(const Header &header)
 {
 	string headerString;
 	headerString = "";

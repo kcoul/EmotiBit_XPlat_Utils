@@ -49,15 +49,15 @@ public:
 	
 	//Header header;
 #ifdef ARDUINO
-	static Header createHeader(String typeTag, uint32_t timestamp, uint16_t packetNumber, uint16_t dataLength = 0, uint8_t protocolVersion = 1, uint8_t dataReliability = 100);
+	static Header createHeader(const String &typeTag, uint32_t timestamp, uint16_t packetNumber, uint16_t dataLength = 0, uint8_t protocolVersion = 1, uint8_t dataReliability = 100);
 #else
-	static Header createHeader(string typeTag, uint32_t timestamp, uint16_t packetNumber, uint16_t dataLength = 0, uint8_t protocolVersion = 1, uint8_t dataReliability = 100);
+	static Header createHeader(const string &typeTag, uint32_t timestamp, uint16_t packetNumber, uint16_t dataLength = 0, uint8_t protocolVersion = 1, uint8_t dataReliability = 100);
 #endif
 
 #ifdef ARDUINO
-	static String headerToString(Header & header);
+	static String headerToString(const Header &header);
 #else
-	static string headerToString(Header & header);
+	static string headerToString(const Header &header);
 #endif
 
 
@@ -249,10 +249,10 @@ public:
 
 
 #ifdef ARDUINO
-	static String createPacket(const String &typeTag, const uint16_t &packetNumber, const String &data, const uint16_t &dataLength, const uint8_t &protocolVersion = 1, const uint8_t& dataReliability = 100);
+	static String createPacket(const String &typeTag, const uint16_t &packetNumber, const String &data, const uint16_t &dataLength, const uint8_t &protocolVersion = 1, const uint8_t &dataReliability = 100);
 #else
-	static string createPacket(const string &typeTag, const uint16_t &packetNumber, const string &data, const uint16_t &dataLength, const uint8_t &protocolVersion = 1, const uint8_t& dataReliability = 100);
-	static string createPacket(const string & typeTag, const uint16_t &packetNumber, const vector<string> & data, const uint8_t &protocolVersion = 1, const uint8_t &dataReliability = 100);
+	static string createPacket(const string &typeTag, const uint16_t &packetNumber, const string &data, const uint16_t &dataLength, const uint8_t &protocolVersion = 1, const uint8_t &dataReliability = 100);
+	static string createPacket(const string &typeTag, const uint16_t &packetNumber, const vector<string> &data, const uint8_t &protocolVersion = 1, const uint8_t &dataReliability = 100);
 #endif
 private:
 	
