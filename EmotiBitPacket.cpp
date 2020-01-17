@@ -59,7 +59,7 @@ const char* EmotiBitPacket::TypeTag::MODE_WIRELESS_OFF = "MO\0";				// Stops sen
 const char* EmotiBitPacket::TypeTag::MODE_HIBERNATE = "MH\0";				// Full shutdown of all operation
 const char* EmotiBitPacket::TypeTag::EMOTIBIT_DISCONNECT = "ED\0";
 // Advertising TypeTags
-const char* EmotiBitPacket::TypeTag::PING = "PI\0";
+const char* EmotiBitPacket::TypeTag::PING = "PN\0";
 const char* EmotiBitPacket::TypeTag::PONG = "PO\0";
 const char* EmotiBitPacket::TypeTag::HELLO_EMOTIBIT = "HE\0";
 const char* EmotiBitPacket::TypeTag::HELLO_HOST = "HH\0";
