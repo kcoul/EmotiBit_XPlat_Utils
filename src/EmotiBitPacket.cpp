@@ -70,7 +70,7 @@ const char* EmotiBitPacket::PayloadLabel::DATA_PORT = "DP\0";
 const char* EmotiBitPacket::PayloadLabel::RECORDING_STATUS = "RS\0";
 const char* EmotiBitPacket::PayloadLabel::POWER_STATUS = "PS\0";
 
-
+const char EmotiBitPacket::PACKET_DELIMITER_CSV = '\n';
 const uint8_t nAperiodicTypeTags = 2;
 const uint8_t nUserMessagesTypeTags = 1;
 const char* const EmotiBitPacket::TypeTagGroups::APERIODIC[nAperiodicTypeTags] = {EmotiBitPacket::TypeTag::DATA_CLIPPING,
