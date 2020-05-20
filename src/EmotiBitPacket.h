@@ -195,7 +195,7 @@ public:
 		static const char* REQUEST_DATA;
 		static const char* PING;
 		static const char* PONG;
-		static const char* DEBUG;
+		static const char* DEBUG_EMOTIBIT;
         
 //        static vector<string> APERIODIC;
 	};
