@@ -15,6 +15,7 @@ const char* EmotiBitPacket::TypeTag::EDR = "ER\0";
 const char* EmotiBitPacket::TypeTag::PPG_INFRARED = "PI\0";
 const char* EmotiBitPacket::TypeTag::PPG_RED = "PR\0";
 const char* EmotiBitPacket::TypeTag::PPG_GREEN = "PG\0";
+const char* EmotiBitPacket::TypeTag::SPO2 = "O2\0";
 const char* EmotiBitPacket::TypeTag::TEMPERATURE_0 = "T0\0";
 const char* EmotiBitPacket::TypeTag::TEMPERATURE_1 = "T1\0";
 const char* EmotiBitPacket::TypeTag::THERMOPILE = "TH\0";

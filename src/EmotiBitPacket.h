@@ -96,6 +96,7 @@ public:
 		PPG_INFRARED,	// PPG Infrared
 		PPG_RED,	// PPG Red
 		PPG_GREEN,	// PPG Green
+		SPO2,	// SpO2
 		TEMPERATURE_0,	// Temperature 0
 		THERMOPILE,	// Thermistor
 		HUMIDITY_0,	// Humidity 0
@@ -148,6 +149,7 @@ public:
 		static const char* PPG_INFRARED;
 		static const char* PPG_RED;
 		static const char* PPG_GREEN;
+		static const char* SPO2;
 		static const char* TEMPERATURE_0;
     static const char* TEMPERATURE_1;
 		static const char* THERMOPILE;
