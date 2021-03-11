@@ -1,6 +1,9 @@
 #include <math.h>
-#include "wiring_constants.h"
 #include <Arduino.h>
+
+#define DIGITAL_FILTER_PI 3.1415926535897932384626433832795
+#define DIGITAL_FILTER_E  2.7182818284590452353602874713526
+
 class DigitalFilter {
 public:
 	enum class FilterType {

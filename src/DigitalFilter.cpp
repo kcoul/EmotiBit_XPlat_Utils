@@ -1,4 +1,4 @@
-#include "DigitalFilters.h"
+#include "DigitalFilter.h"
 
 DigitalFilter::DigitalFilter(FilterType type, float samplingFreq, float filterFreq1)
 {
@@ -6,7 +6,7 @@ DigitalFilter::DigitalFilter(FilterType type, float samplingFreq, float filterFr
 	//Serial.print("Sampling Rate: "); Serial.println(samplingFreq);
 	_type = type;
 	_filteredValue = -1;
-	_alpha = pow(M_E, -2.f * PI * filterFreq1 / samplingFreq);
+	_alpha = pow(DIGITAL_FILTER_E, -2.f * DIGITAL_FILTER_PI * filterFreq1 / samplingFreq);
 	_nInitSamples = 0;
 	_nPoles = 1;
 }
