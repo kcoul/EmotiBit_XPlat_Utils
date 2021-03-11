@@ -11,7 +11,7 @@ DigitalFilter::DigitalFilter(FilterType type, float samplingFreq, float filterFr
 
 float DigitalFilter::filter(float inputSample)
 {
-	if (_filteredValue < 0)
+	if (_filteredValue == -1)
 	{
 		// initialize filter
 		_filteredValue = inputSample;
