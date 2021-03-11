@@ -7,14 +7,17 @@ DigitalFilter::DigitalFilter(FilterType type, float samplingFreq, float filterFr
 	_type = type;
 	_filteredValue = -1;
 	_alpha = pow(M_E, -2.f * PI * filterFreq1 / samplingFreq);
+	_nInitSamples = 0;
+	_nPoles = 1;
 }
 
 float DigitalFilter::filter(float inputSample)
 {
-	if (_filteredValue == -1)
+	if (_nInitSamples < _nPoles)
 	{
 		// initialize filter
 		_filteredValue = inputSample;
+		_nInitSamples++;
 	}
 	if (_type == FilterType::IIR_LOWPASS)
 	{

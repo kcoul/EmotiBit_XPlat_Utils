@@ -10,6 +10,8 @@ private:
 	float _filteredValue;
 	float _alpha;
 	FilterType _type;
+	int _nInitSamples;
+	int _nPoles;
 
 public:
 	DigitalFilter(FilterType type, float samplingFreq, float filterFreq1);
