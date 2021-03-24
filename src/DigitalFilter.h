@@ -1,4 +1,3 @@
-#include <math.h>
 #include <Arduino.h>
 
 #define DIGITAL_FILTER_PI 3.1415926535897932384626433832795
