@@ -71,6 +71,36 @@ const char* EmotiBitPacket::PayloadLabel::DATA_PORT = "DP\0";
 const char* EmotiBitPacket::PayloadLabel::RECORDING_STATUS = "RS\0";
 const char* EmotiBitPacket::PayloadLabel::POWER_STATUS = "PS\0";
 
+// Factory Test Typetags
+const char* EmotiBitPacket::TypeTag::EMOTIBIT_VERSION = "EV\0";
+const char* EmotiBitPacket::TypeTag::FIRMWARE_VERSION = "FV\0";
+const char* EmotiBitPacket::TypeTag::I2C_COMM_INIT = "TW\0";
+const char* EmotiBitPacket::TypeTag::FLASH = "FL\0";
+const char* EmotiBitPacket::TypeTag::SERIAL_NUMBER_WRITE = "SW\0";
+const char* EmotiBitPacket::TypeTag::LED_CONTROLLER = "LC\0";
+const char* EmotiBitPacket::TypeTag::PPG_SENSOR = "PG\0";
+const char* EmotiBitPacket::TypeTag::IMU_ID = "II\0";
+const char* EmotiBitPacket::TypeTag::ACCEL_GYRO = "AG\0";
+const char* EmotiBitPacket::TypeTag::MAGNETOMETER = "MG\0";
+const char* EmotiBitPacket::TypeTag::TEMP_SENSOR = "TE\0";
+const char* EmotiBitPacket::TypeTag::THERMOPILE = "TH\0";
+const char* EmotiBitPacket::TypeTag::ADC = "AD\0";
+const char* EmotiBitPacket::TypeTag::SD_CARD = "SD\0";
+const char* EmotiBitPacket::TypeTag::WIFI = "WF\0";
+const char* EmotiBitPacket::TypeTag::SETUP_COMPLETE = "SC\0";
+const char* EmotiBitPacket::TypeTag::AVDD_VOLTAGE = "AV\0";
+const char* EmotiBitPacket::TypeTag::DVDD_VOLTAGE = "DV\0";
+const char* EmotiBitPacket::TypeTag::TOTAL_CURRENT = "TC\0";
+const char* EmotiBitPacket::TypeTag::WIFI_OFF_CURRENT = "WC\0";
+const char* EmotiBitPacket::TypeTag::HIBERNATE_CURRENT = "HC\0";
+const char* EmotiBitPacket::TypeTag::TEST_RESULT_DELIMITER = ":";
+const char* EmotiBitPacket::TypeTag::TEST_TYPE_DELIMITER = "+";
+const char* EmotiBitPacket::TypeTag::TEST_PASS = "TP\0";
+const char* EmotiBitPacket::TypeTag::TEST_FAIL = "TF\0";
+
+
+
+
 const char EmotiBitPacket::PACKET_DELIMITER_CSV = '\n';
 const uint8_t nAperiodicTypeTags = 2;
 const uint8_t nUserMessagesTypeTags = 1;
