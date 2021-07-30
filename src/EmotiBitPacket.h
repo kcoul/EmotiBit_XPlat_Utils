@@ -211,9 +211,9 @@ public:
 		static const char* ACCEL_GYRO;
 		static const char* MAGNETOMETER;
 		static const char* TEMP_SENSOR;
-		static const char* THERMOPILE;
-		static const char* ADC;
-		static const char* SD-CARD;
+		static const char* THERMOPILE_INIT;
+		static const char* ADC_INIT;
+		static const char* SD_CARD;
 		static const char* WIFI;
 		static const char* SETUP_COMPLETE;
 		static const char* AVDD_VOLTAGE;
