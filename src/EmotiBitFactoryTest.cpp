@@ -3,6 +3,7 @@
 // Factory Test Typetags
 const char* EmotiBitFactoryTest::TypeTag::EMOTIBIT_VERSION = "EV\0";
 const char* EmotiBitFactoryTest::TypeTag::FIRMWARE_VERSION = "FV\0";
+const char* EmotiBitFactoryTest::TypeTag::EMOTIBIT_NUMBER = "EN\0";
 const char* EmotiBitFactoryTest::TypeTag::I2C_COMM_INIT = "TW";
 const char* EmotiBitFactoryTest::TypeTag::FLASH = "FL\0";
 const char* EmotiBitFactoryTest::TypeTag::SERIAL_NUMBER_WRITE = "SW\0";
@@ -32,11 +33,15 @@ void EmotiBitFactoryTest::updateOutputString(char* output, const char* testType,
 {
 	//char output[10]; // max posible for any test
 	strcat(output,testType);
-	if(testType != TypeTag::SETUP_COMPLETE)
+	strcat(output,TypeTag::TEST_RESULT_DELIMITER);
+	strcat(output,result);
+	if(result != TypeTag::TEST_FAIL && result != TypeTag::NULL_VAL)
 	{
-		strcat(output,TypeTag::TEST_RESULT_DELIMITER);
-		strcat(output,result);
 		strcat(output,TypeTag::TEST_TYPE_DELIMITER);
+	}
+	else
+	{
+		strcat(output, "***");
 	}
 }
 
