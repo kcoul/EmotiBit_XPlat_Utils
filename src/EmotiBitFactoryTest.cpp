@@ -55,6 +55,10 @@ void EmotiBitFactoryTest::sendMessage(String typeTag, String payload)
 {
 	Serial.print(EmotiBitFactoryTest::MSG_START_CHAR);
 	Serial.print(typeTag);
-	Serial.print(payload);
+	if (!payload.equals(""))
+	{
+		Serial.print(EmotiBitFactoryTest::PAYLOAD_DELIMITER);
+		Serial.print(payload);
+	}
 	Serial.println(EmotiBitFactoryTest::MSG_TERM_CHAR);
 }
