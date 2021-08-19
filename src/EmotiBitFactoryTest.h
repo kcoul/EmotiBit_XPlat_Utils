@@ -38,14 +38,12 @@ public:
 		static const char* TEST_TYPE_DELIMITER;
 		static const char* TEST_PASS;
 		static const char* TEST_FAIL;
-		static const char* NULL_VAL;
 		static const char* LED_RED_ON;
 		static const char* LED_RED_OFF;
 		static const char* LED_BLUE_ON;
 		static const char* LED_BLUE_OFF;
 		static const char* LED_YELLOW_ON;
 		static const char* LED_YELLOW_OFF;
-		static const char* NULL_VAL;
 		static const char* NULL_VAL;
 	};
 
