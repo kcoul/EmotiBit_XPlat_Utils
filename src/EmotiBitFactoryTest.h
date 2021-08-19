@@ -47,10 +47,10 @@ public:
 		static const char* NULL_VAL;
 	};
 
-	static const char MSG_START_CHAR = '~';
-	static const char MSG_TERM_CHAR = '\n';
+	static const char MSG_START_CHAR = '@';
+	static const char MSG_TERM_CHAR = '~';
 
 	static void updateOutputString(char * output, const char* testType, const char* result);
 
-	static void EmotiBitFactoryTest::sendMessage(String typeTag, String payload);
+	static void sendMessage(String typeTag, String payload);
 };
