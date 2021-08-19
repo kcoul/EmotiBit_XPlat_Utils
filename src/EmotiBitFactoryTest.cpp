@@ -51,3 +51,10 @@ void EmotiBitFactoryTest::updateOutputString(char* output, const char* testType,
 	}
 }
 
+void EmotiBitFactoryTest::sendMessage(String typeTag, String payload)
+{
+	Serial.print(EmotiBitFactoryTest::MSG_START_CHAR);
+	Serial.print(typeTag);
+	Serial.print(payload);
+	Serial.println(EmotiBitFactoryTest::MSG_TERM_CHAR);
+}

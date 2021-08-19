@@ -51,4 +51,6 @@ public:
 	static const char MSG_TERM_CHAR = '\n';
 
 	static void updateOutputString(char * output, const char* testType, const char* result);
+
+	static void EmotiBitFactoryTest::sendMessage(String typeTag, String payload);
 };
