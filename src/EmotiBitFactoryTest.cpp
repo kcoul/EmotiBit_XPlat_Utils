@@ -25,15 +25,15 @@ const char* EmotiBitFactoryTest::TypeTag::WIFI_OFF_CURRENT = "WC\0";
 const char* EmotiBitFactoryTest::TypeTag::HIBERNATE_CURRENT = "HC\0";
 const char* EmotiBitFactoryTest::TypeTag::TEST_RESULT_DELIMITER = ":\0";
 const char* EmotiBitFactoryTest::TypeTag::TEST_TYPE_DELIMITER = "+\0";
+const char* EmotiBitFactoryTest::TypeTag::LED_RED_ON = "+R\0";
+const char* EmotiBitFactoryTest::TypeTag::LED_RED_OFF = "-R\0";
+const char* EmotiBitFactoryTest::TypeTag::LED_BLUE_ON = "+B\0";
+const char* EmotiBitFactoryTest::TypeTag::LED_BLUE_OFF = "-B\0";
+const char* EmotiBitFactoryTest::TypeTag::LED_YELLOW_ON = "+Y\0";
+const char* EmotiBitFactoryTest::TypeTag::LED_YELLOW_OFF = "-Y\0";
+const char* EmotiBitFactoryTest::TypeTag::NULL_VAL = "\0";
 const char* EmotiBitFactoryTest::TypeTag::TEST_PASS = "PASS\0";
 const char* EmotiBitFactoryTest::TypeTag::TEST_FAIL = "FAIL\0";
-const char* EmotiBitFactoryTest::TypeTag::LED_RED_ON = "+R";
-const char* EmotiBitFactoryTest::TypeTag::LED_RED_OFF = "-R";
-const char* EmotiBitFactoryTest::TypeTag::LED_BLUE_ON = "+B";
-const char* EmotiBitFactoryTest::TypeTag::LED_BLUE_OFF = "-B";
-const char* EmotiBitFactoryTest::TypeTag::LED_YELLOW_ON = "+Y";
-const char* EmotiBitFactoryTest::TypeTag::LED_YELLOW_OFF = "-Y";
-const char* EmotiBitFactoryTest::TypeTag::NULL_VAL = "\0";
 
 void EmotiBitFactoryTest::updateOutputString(char* output, const char* testType, const char* result)
 {
