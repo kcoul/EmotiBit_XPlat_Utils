@@ -52,6 +52,7 @@ public:
 	static const char PAYLOAD_DELIMITER = ',';
 
 	static void updateOutputString(char * output, const char* testType, const char* result);
-
-	static void sendMessage(String typeTag, String payload = "");
+	#ifdef ARDUINO
+		static void sendMessage(String typeTag, String payload = "");
+	#endif
 };

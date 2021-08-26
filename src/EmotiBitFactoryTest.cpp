@@ -50,15 +50,16 @@ void EmotiBitFactoryTest::updateOutputString(char* output, const char* testType,
 		strcat(output, "***");
 	}
 }
-
-void EmotiBitFactoryTest::sendMessage(String typeTag, String payload)
-{
-	Serial.print(EmotiBitFactoryTest::MSG_START_CHAR);
-	Serial.print(typeTag);
-	if (!payload.equals(""))
+#ifdef ARDUINO
+	void EmotiBitFactoryTest::sendMessage(String typeTag, String payload)
 	{
-		Serial.print(EmotiBitFactoryTest::PAYLOAD_DELIMITER);
-		Serial.print(payload);
+		Serial.print(EmotiBitFactoryTest::MSG_START_CHAR);
+		Serial.print(typeTag);
+		if (!payload.equals(""))
+		{
+			Serial.print(EmotiBitFactoryTest::PAYLOAD_DELIMITER);
+			Serial.print(payload);
+		}
+		Serial.println(EmotiBitFactoryTest::MSG_TERM_CHAR);
 	}
-	Serial.println(EmotiBitFactoryTest::MSG_TERM_CHAR);
-}
+#endif
