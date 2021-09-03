@@ -31,6 +31,8 @@ const char* EmotiBitPacket::TypeTag::MAGNETOMETER_Y = "MY\0";
 const char* EmotiBitPacket::TypeTag::MAGNETOMETER_Z = "MZ\0";
 const char* EmotiBitPacket::TypeTag::BATTERY_VOLTAGE = "BV\0";
 const char* EmotiBitPacket::TypeTag::BATTERY_PERCENT = "B%\0";
+const char* EmotiBitPacket::TypeTag::BUTTON_PRESS_SHORT = "BS\0";
+const char* EmotiBitPacket::TypeTag::BUTTON_PRESS_LONG = "BL\0";
 const char* EmotiBitPacket::TypeTag::DATA_CLIPPING = "DC\0";
 const char* EmotiBitPacket::TypeTag::DATA_OVERFLOW = "DO\0";
 const char* EmotiBitPacket::TypeTag::SD_CARD_PERCENT = "SD\0";
@@ -70,6 +72,8 @@ const char* EmotiBitPacket::PayloadLabel::CONTROL_PORT = "CP\0";
 const char* EmotiBitPacket::PayloadLabel::DATA_PORT = "DP\0";
 const char* EmotiBitPacket::PayloadLabel::RECORDING_STATUS = "RS\0";
 const char* EmotiBitPacket::PayloadLabel::POWER_STATUS = "PS\0";
+
+
 
 const char EmotiBitPacket::PACKET_DELIMITER_CSV = '\n';
 const uint8_t nAperiodicTypeTags = 2;

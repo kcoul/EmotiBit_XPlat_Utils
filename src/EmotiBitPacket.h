@@ -112,6 +112,8 @@ public:
 		// Additional EmotiBit Info
 		BATTERY_VOLTAGE,	// Battery Voltage
 		BATTERY_PERCENT,	// Battery percent(%)
+		BUTTON_PRESS_SHORT, // Button Press Short
+		BUTTON_PRESS_LONG, // Button Press Long
 		DATA_CLIPPING,	// Data clipping, data = typeTags of data
 		DATA_OVERFLOW,	// Data overflow, data = typeTags of data
 		SD_CARD_PERCENT,	// SD card % full
@@ -165,6 +167,8 @@ public:
 		static const char* MAGNETOMETER_Z;
 		static const char* BATTERY_VOLTAGE;
 		static const char* BATTERY_PERCENT;
+		static const char* BUTTON_PRESS_SHORT;
+		static const char* BUTTON_PRESS_LONG;
 		static const char* DATA_CLIPPING;
 		static const char* DATA_OVERFLOW;
 		static const char* SD_CARD_PERCENT;
@@ -198,7 +202,7 @@ public:
 		static const char* PING;
 		static const char* PONG;
 		static const char* EMOTIBIT_DEBUG;
-        
+       
 //        static vector<string> APERIODIC;
 	};
     
