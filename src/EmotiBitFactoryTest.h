@@ -34,8 +34,6 @@ public:
 		static const char* TOTAL_CURRENT;
 		static const char* WIFI_OFF_CURRENT;
 		static const char* HIBERNATE_CURRENT;
-		static const char* TEST_RESULT_DELIMITER;
-		static const char* TEST_TYPE_DELIMITER;
 		static const char* TEST_PASS;
 		static const char* TEST_FAIL;
 		static const char* LED_RED_ON;
@@ -44,12 +42,20 @@ public:
 		static const char* LED_BLUE_OFF;
 		static const char* LED_YELLOW_ON;
 		static const char* LED_YELLOW_OFF;
-		static const char* NULL_VAL;
 	};
 
+	static const char* TEST_RESULT_DELIMITER;
+	static const char* TEST_TYPE_DELIMITER;
+	static const char* NULL_VAL;
+	static const char* TEST_PASS;
+	static const char* TEST_FAIL;
+
+	static const char FACTORY_MODE_CHAR = 'F';
 	static const char MSG_START_CHAR = '@';
 	static const char MSG_TERM_CHAR = '~';
 	static const char PAYLOAD_DELIMITER = ',';
+
+	static const size_t MAX_FACTORY_MSG_SIZE = 100;
 
 	static void updateOutputString(char * output, const char* testType, const char* result);
 	#ifdef ARDUINO

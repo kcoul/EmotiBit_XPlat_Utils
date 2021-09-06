@@ -23,31 +23,32 @@ const char* EmotiBitFactoryTest::TypeTag::DVDD_VOLTAGE = "DV\0";
 const char* EmotiBitFactoryTest::TypeTag::TOTAL_CURRENT = "TC\0";
 const char* EmotiBitFactoryTest::TypeTag::WIFI_OFF_CURRENT = "WC\0";
 const char* EmotiBitFactoryTest::TypeTag::HIBERNATE_CURRENT = "HC\0";
-const char* EmotiBitFactoryTest::TypeTag::TEST_RESULT_DELIMITER = ":\0";
-const char* EmotiBitFactoryTest::TypeTag::TEST_TYPE_DELIMITER = "+\0";
 const char* EmotiBitFactoryTest::TypeTag::LED_RED_ON = "+R\0";
 const char* EmotiBitFactoryTest::TypeTag::LED_RED_OFF = "-R\0";
 const char* EmotiBitFactoryTest::TypeTag::LED_BLUE_ON = "+B\0";
 const char* EmotiBitFactoryTest::TypeTag::LED_BLUE_OFF = "-B\0";
 const char* EmotiBitFactoryTest::TypeTag::LED_YELLOW_ON = "+Y\0";
 const char* EmotiBitFactoryTest::TypeTag::LED_YELLOW_OFF = "-Y\0";
-const char* EmotiBitFactoryTest::TypeTag::NULL_VAL = "\0";
-const char* EmotiBitFactoryTest::TypeTag::TEST_PASS = "PASS\0";
-const char* EmotiBitFactoryTest::TypeTag::TEST_FAIL = "FAIL\0";
+
+const char* EmotiBitFactoryTest::TEST_RESULT_DELIMITER = ":\0";
+const char* EmotiBitFactoryTest::TEST_TYPE_DELIMITER = "+\0";
+const char* EmotiBitFactoryTest::NULL_VAL = "\0";
+const char* EmotiBitFactoryTest::TEST_PASS = "PASS\0";
+const char* EmotiBitFactoryTest::TEST_FAIL = "FAIL\0";
 
 void EmotiBitFactoryTest::updateOutputString(char* output, const char* testType, const char* result)
 {
 	//char output[10]; // max posible for any test
 	strcat(output,testType);
-	strcat(output,TypeTag::TEST_RESULT_DELIMITER);
+	strcat(output,TEST_RESULT_DELIMITER);
 	strcat(output,result);
-	if(result != TypeTag::TEST_FAIL && result != TypeTag::NULL_VAL)
+	if(result != TEST_FAIL && result != NULL_VAL)
 	{
-		strcat(output,TypeTag::TEST_TYPE_DELIMITER);
+		strcat(output,TEST_TYPE_DELIMITER);
 	}
 	else
 	{
-		strcat(output, "***");
+		strcat(output, &MSG_TERM_CHAR);
 	}
 }
 #ifdef ARDUINO
