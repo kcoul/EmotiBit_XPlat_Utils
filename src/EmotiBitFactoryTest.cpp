@@ -4,7 +4,7 @@
 const char* EmotiBitFactoryTest::TypeTag::EMOTIBIT_VERSION = "EV\0";
 const char* EmotiBitFactoryTest::TypeTag::FIRMWARE_VERSION = "FV\0";
 const char* EmotiBitFactoryTest::TypeTag::EMOTIBIT_NUMBER = "EN\0";
-const char* EmotiBitFactoryTest::TypeTag::I2C_COMM_INIT = "TW";
+const char* EmotiBitFactoryTest::TypeTag::I2C_COMM_INIT = "TW\0";
 const char* EmotiBitFactoryTest::TypeTag::FLASH = "FL\0";
 const char* EmotiBitFactoryTest::TypeTag::SERIAL_NUMBER_WRITE = "SW\0";
 const char* EmotiBitFactoryTest::TypeTag::LED_CONTROLLER = "LC\0";
@@ -34,6 +34,8 @@ const char* EmotiBitFactoryTest::TypeTag::LED_YELLOW_OFF = "-Y\0";
 const char* EmotiBitFactoryTest::TypeTag::NULL_VAL = "\0";
 const char* EmotiBitFactoryTest::TypeTag::TEST_PASS = "PASS\0";
 const char* EmotiBitFactoryTest::TypeTag::TEST_FAIL = "FAIL\0";
+const char* EmotiBitFactoryTest::TypeTag::VERSION_VALIDATION = "VV\0";
+const char* EmotiBitFactoryTest::TypeTag::SKU_VALIDATION = "SV\0";
 
 void EmotiBitFactoryTest::updateOutputString(char* output, const char* testType, const char* result)
 {
@@ -41,7 +43,7 @@ void EmotiBitFactoryTest::updateOutputString(char* output, const char* testType,
 	strcat(output,testType);
 	strcat(output,TypeTag::TEST_RESULT_DELIMITER);
 	strcat(output,result);
-	if(result != TypeTag::TEST_FAIL && result != TypeTag::NULL_VAL)
+	if(result != TypeTag::NULL_VAL)
 	{
 		strcat(output,TypeTag::TEST_TYPE_DELIMITER);
 	}

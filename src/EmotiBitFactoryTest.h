@@ -45,6 +45,8 @@ public:
 		static const char* LED_YELLOW_ON;
 		static const char* LED_YELLOW_OFF;
 		static const char* NULL_VAL;
+		static const char* VERSION_VALIDATION;
+		static const char* SKU_VALIDATION;
 	};
 
 	static const char MSG_START_CHAR = '@';
