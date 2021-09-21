@@ -64,4 +64,34 @@ void EmotiBitFactoryTest::updateOutputString(char* output, const char* testType,
 		}
 		Serial.println(EmotiBitFactoryTest::MSG_TERM_CHAR);
 	}
+
+	// returns the version from barcode string "SKU-VERSION-NUMBER"
+int EmotiBitFactoryTest::getVersionFromBarcode(String barcode)
+{
+	String sku, emotibitVersion, emotibitNumber;
+	sku = barcode.substring(0, barcode.indexOf(BARCODE_DELIMITER));
+	barcode = barcode.substring(barcode.indexOf(BARCODE_DELIMITER) + 1);
+	emotibitVersion = barcode.substring(0, barcode.indexOf(BARCODE_DELIMITER));
+	emotibitNumber = barcode.substring(barcode.indexOf(BARCODE_DELIMITER) + 1);
+	// if barcode has V4
+	if (emotibitVersion.equals("V4"))
+	{
+		return (int)EmotiBitVersionController::EmotiBitVersion::V04A;
+	}
+	// if barcode has V3
+	else if (emotibitVersion.equals("V3"))
+	{
+		return (int)EmotiBitVersionController::EmotiBitVersion::V03B;
+	}
+	else
+	{
+		return -1;
+	}
+}
+
+// returns the sku from barcode string "SKU-VERSION-NUMBER"
+String EmotiBitFactoryTest::getSkuFromBarcode(String barcode)
+{
+	return barcode.substring(0, barcode.indexOf(BARCODE_DELIMITER));
+}
 #endif

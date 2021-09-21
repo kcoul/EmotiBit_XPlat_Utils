@@ -1,5 +1,6 @@
 #ifdef ARDUINO
 	#include <Arduino.h>
+	#include "EmotiBitVersionController.h"
 #else
 	// ToDo: Remove OF dependency for ofToString()
 	#include "ofMain.h"
@@ -52,9 +53,12 @@ public:
 	static const char MSG_START_CHAR = '@';
 	static const char MSG_TERM_CHAR = '~';
 	static const char PAYLOAD_DELIMITER = ',';
+	static const char BARCODE_DELIMITER = '-';
 
 	static void updateOutputString(char * output, const char* testType, const char* result);
 	#ifdef ARDUINO
 		static void sendMessage(String typeTag, String payload = "");
+		static int getVersionFromBarcode(String barcode);
+		static String getSkuFromBarcode(String barcode);
 	#endif
 };
