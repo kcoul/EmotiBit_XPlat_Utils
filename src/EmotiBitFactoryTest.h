@@ -1,6 +1,5 @@
 #ifdef ARDUINO
 	#include <Arduino.h>
-	#include "EmotiBitVersionController.h"
 #else
 	// ToDo: Remove OF dependency for ofToString()
 	#include "ofMain.h"
