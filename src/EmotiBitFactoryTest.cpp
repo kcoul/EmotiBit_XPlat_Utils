@@ -68,20 +68,20 @@ void EmotiBitFactoryTest::sendMessage(String typeTag, String payload)
 	// Parses the barcode 
 void EmotiBitFactoryTest::parseBarcode(Barcode* barcode)
 {
-	String tempEmotibitVersion;
 	barcode->sku = barcode->code.substring(0, barcode->code.indexOf(BARCODE_DELIMITER));
 	barcode->code = barcode->code.substring(barcode->code.indexOf(BARCODE_DELIMITER) + 1);
-	tempEmotibitVersion = barcode->code.substring(0, barcode->code.indexOf(BARCODE_DELIMITER));
+	barcode->emotibitVersion = barcode->code.substring(0, barcode->code.indexOf(BARCODE_DELIMITER));
 	barcode->emotibitNumber = barcode->code.substring(barcode->code.indexOf(BARCODE_DELIMITER) + 1);
-	// if barcode has V4
-	if (tempEmotibitVersion.equals("V4"))
-	{
-		barcode->emotibitVersion = (int)EmotiBitVersionController::EmotiBitVersion::V04A;
-	}
-	// if barcode has V3
-	else if (tempEmotibitVersion.equals("V3"))
-	{
-		barcode->emotibitVersion = (int)EmotiBitVersionController::EmotiBitVersion::V03B;
-	}
+}
+
+bool EmotiBitFactoryTest::validateVersionEstimate(String barcode, String estimate)
+{
+	// remove the leading "V" in version
+	barcode.remove(barcode.indexOf(EmotiBitVariants::VERSION_PREFIX),1);
+	estimate.remove(estimate.indexOf(EmotiBitVariants::VERSION_PREFIX),1);
+	if (barcode.toInt() == estimate.toInt())
+		return true;
+	else
+		return false;
 }
 #endif

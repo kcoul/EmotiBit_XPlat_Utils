@@ -5,13 +5,14 @@
 	// ToDo: Remove OF dependency for ofToString()
 	#include "ofMain.h"
 #endif // !ARDUINO
+#include "EmotiBitVariants.h"
 
 #ifdef ARDUINO
 struct Barcode
 {
 	String code = "\0";
 	String sku = "\0";
-	int emotibitVersion = 0;
+	String emotibitVersion = "\0";
 	String emotibitNumber = "\0";
 };
 #endif
@@ -70,6 +71,7 @@ public:
 		static void updateOutputString(String &output, const char* testType, const char* result);
 		static void sendMessage(String typeTag, String payload = "");
 		static void parseBarcode(Barcode* barcode);
+		static bool validateVersionEstimate(String barcode, String estimate);
 	#endif
 };
 
