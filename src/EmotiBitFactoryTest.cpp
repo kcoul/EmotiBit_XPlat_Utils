@@ -65,7 +65,7 @@ void EmotiBitFactoryTest::sendMessage(String typeTag, String payload)
 	Serial.println(EmotiBitFactoryTest::MSG_TERM_CHAR);
 }
 
-	// returns the version from barcode string "SKU-VERSION-NUMBER"
+	// Parses the barcode 
 void EmotiBitFactoryTest::parseBarcode(Barcode* barcode)
 {
 	String tempEmotibitVersion;
