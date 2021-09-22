@@ -66,32 +66,22 @@ void EmotiBitFactoryTest::updateOutputString(char* output, const char* testType,
 	}
 
 	// returns the version from barcode string "SKU-VERSION-NUMBER"
-int EmotiBitFactoryTest::getVersionFromBarcode(String barcode)
+void EmotiBitFactoryTest::parseBarcode(Barcode* barcode)
 {
-	String sku, emotibitVersion, emotibitNumber;
-	sku = barcode.substring(0, barcode.indexOf(BARCODE_DELIMITER));
-	barcode = barcode.substring(barcode.indexOf(BARCODE_DELIMITER) + 1);
-	emotibitVersion = barcode.substring(0, barcode.indexOf(BARCODE_DELIMITER));
-	emotibitNumber = barcode.substring(barcode.indexOf(BARCODE_DELIMITER) + 1);
+	String tempEmotibitVersion;
+	barcode->sku = barcode->code.substring(0, barcode->code.indexOf(BARCODE_DELIMITER));
+	barcode->code = barcode->code.substring(barcode->code.indexOf(BARCODE_DELIMITER) + 1);
+	tempEmotibitVersion = barcode->code.substring(0, barcode->code.indexOf(BARCODE_DELIMITER));
+	barcode->emotibitNumber = barcode->code.substring(barcode->code.indexOf(BARCODE_DELIMITER) + 1);
 	// if barcode has V4
-	if (emotibitVersion.equals("V4"))
+	if (tempEmotibitVersion.equals("V4"))
 	{
-		return (int)EmotiBitVersionController::EmotiBitVersion::V04A;
+		barcode->emotibitVersion = (int)EmotiBitVersionController::EmotiBitVersion::V04A;
 	}
 	// if barcode has V3
-	else if (emotibitVersion.equals("V3"))
+	else if (tempEmotibitVersion.equals("V3"))
 	{
-		return (int)EmotiBitVersionController::EmotiBitVersion::V03B;
+		barcode->emotibitVersion = (int)EmotiBitVersionController::EmotiBitVersion::V03B;
 	}
-	else
-	{
-		return -1;
-	}
-}
-
-// returns the sku from barcode string "SKU-VERSION-NUMBER"
-String EmotiBitFactoryTest::getSkuFromBarcode(String barcode)
-{
-	return barcode.substring(0, barcode.indexOf(BARCODE_DELIMITER));
 }
 #endif
