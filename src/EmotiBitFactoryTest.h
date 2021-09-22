@@ -66,8 +66,8 @@ public:
 	static const char PAYLOAD_DELIMITER = ',';
 	static const char BARCODE_DELIMITER = '-';
 
-	static void updateOutputString(String &output, const char* testType, const char* result);
 	#ifdef ARDUINO
+		static void updateOutputString(String &output, const char* testType, const char* result);
 		static void sendMessage(String typeTag, String payload = "");
 		static void parseBarcode(Barcode* barcode);
 	#endif

@@ -37,6 +37,7 @@ const char* EmotiBitFactoryTest::TypeTag::TEST_FAIL = "FAIL\0";
 const char* EmotiBitFactoryTest::TypeTag::VERSION_VALIDATION = "VV\0";
 const char* EmotiBitFactoryTest::TypeTag::SKU_VALIDATION = "SV\0";
 
+#ifdef ARDUINO
 void EmotiBitFactoryTest::updateOutputString(String &output, const char* testType, const char* result)
 {
 	output += testType;
@@ -51,18 +52,18 @@ void EmotiBitFactoryTest::updateOutputString(String &output, const char* testTyp
 		output += MSG_TERM_CHAR;
 	}
 }
-#ifdef ARDUINO
-	void EmotiBitFactoryTest::sendMessage(String typeTag, String payload)
+
+void EmotiBitFactoryTest::sendMessage(String typeTag, String payload)
+{
+	Serial.print(EmotiBitFactoryTest::MSG_START_CHAR);
+	Serial.print(typeTag);
+	if (!payload.equals(""))
 	{
-		Serial.print(EmotiBitFactoryTest::MSG_START_CHAR);
-		Serial.print(typeTag);
-		if (!payload.equals(""))
-		{
-			Serial.print(EmotiBitFactoryTest::PAYLOAD_DELIMITER);
-			Serial.print(payload);
-		}
-		Serial.println(EmotiBitFactoryTest::MSG_TERM_CHAR);
+		Serial.print(EmotiBitFactoryTest::PAYLOAD_DELIMITER);
+		Serial.print(payload);
 	}
+	Serial.println(EmotiBitFactoryTest::MSG_TERM_CHAR);
+}
 
 	// returns the version from barcode string "SKU-VERSION-NUMBER"
 void EmotiBitFactoryTest::parseBarcode(Barcode* barcode)
