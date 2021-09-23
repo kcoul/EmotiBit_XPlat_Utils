@@ -65,8 +65,8 @@ public:
 	static const char MSG_TERM_CHAR = '~';
 	static const char PAYLOAD_DELIMITER = ',';
 	static const char BARCODE_DELIMITER = '-';
-	static const char ACK_FACTORY_MODE = '!';
-
+	static const char INIT_FACTORY_TEST = 'F';
+	static const char FIRMWARE_DELIMITER = '.';
 	#ifdef ARDUINO
 		static void updateOutputString(String &output, const char* testType, const char* result);
 		static void sendMessage(String typeTag, String payload = "");
