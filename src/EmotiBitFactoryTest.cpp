@@ -36,6 +36,7 @@ const char* EmotiBitFactoryTest::TypeTag::TEST_PASS = "PASS\0";
 const char* EmotiBitFactoryTest::TypeTag::TEST_FAIL = "FAIL\0";
 const char* EmotiBitFactoryTest::TypeTag::VERSION_VALIDATION = "VV\0";
 const char* EmotiBitFactoryTest::TypeTag::SKU_VALIDATION = "SV\0";
+const char* EmotiBitFactoryTest::TypeTag::INITIALIZING_SENSOR = "IS\0";
 
 #ifdef ARDUINO
 void EmotiBitFactoryTest::updateOutputString(String &output, const char* testType, const char* result)

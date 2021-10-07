@@ -59,6 +59,7 @@ public:
 		static const char* NULL_VAL;
 		static const char* VERSION_VALIDATION;
 		static const char* SKU_VALIDATION;
+		static const char* INITIALIZING_SENSOR;
 	};
 
 	static const char MSG_START_CHAR = '@';
