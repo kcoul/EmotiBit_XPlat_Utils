@@ -23,6 +23,11 @@ float DigitalFilter::filter(float inputSample)
 		_filteredValue = inputSample * (1. - _alpha) + _filteredValue * _alpha;
 		return _filteredValue;
 	}
+	else if (_type == FilterType::IIR_HIGHPASS)
+	{
+		_filteredValue = inputSample * (1. - _alpha) + _filteredValue * _alpha;
+		return inputSample - _filteredValue;
+	}
 	else
 	{
 		// resolve for other filter types

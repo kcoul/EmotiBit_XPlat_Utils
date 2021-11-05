@@ -1,4 +1,11 @@
 #pragma once
+#ifdef ARDUINO
+	#include <String.h>
+	#include <WString.h>
+	#include <stdint.h>
+#else
+	#include <string>
+#endif
 
 class EmotiBitEdaCalibration
 {
@@ -52,7 +59,7 @@ public:
 		@brief pack a RawValues_V2 struct into a string for serial communication
 		@return string with csv calibration packet data
 	*/
-	static bool unpackCalibPacket(const String &edaCalibPacket, int &packetVersion, RawValues_V2 &rawVals);
+	static bool unpackCalibPacket(const String &edaCalibPacket, uint8_t &packetVersion, RawValues_V2 &rawVals);
 
 #else
 	// ToDo: Consider templating createCalibPacket

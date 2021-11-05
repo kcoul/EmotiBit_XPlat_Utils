@@ -1,4 +1,5 @@
 
+#include "EmotiBitEdaCalibration.h"
 #include "EmotiBitFactoryTest.h"
 #include "EmotiBitPacket.h"
 
@@ -8,11 +9,11 @@ bool EmotiBitEdaCalibration::calculate(const RawValues_V0 &rawVals, float &vRef1
 	vRef2 = rawVals.edrAvg;
 
 	// using 1M to find Rfeedback
-	rfeedback = (1000000.f / ((rawVals.edl1M / vRef1) - 1;
+	rfeedback = (1000000.f / ((rawVals.edl1M / vRef1) - 1));
 	return true;
 }
 
-bool EmotiBitEdaCalibration::calculate(const RawValues_V2 &rawVals, float &edaTransformSlope, float &edaTransformIntercept);
+bool EmotiBitEdaCalibration::calculate(const RawValues_V2 &rawVals, float &edaTransformSlope, float &edaTransformIntercept)
 {
 	// ToDo: Consider optimizing calculation for maintaining float resolution
 	float meanRes = 0;
@@ -39,18 +40,18 @@ bool EmotiBitEdaCalibration::calculate(const RawValues_V2 &rawVals, float &edaTr
 		normAdcVal = rawVals.vals[i].adcVal - meanAdcVal;
 		normResMultNormAdcVal = normRes * normAdcVal;
 		sumNormResMultNormAdcVal += normResMultNormAdcVal;
-		normResSquare = normRes ^ 2;
+		normResSquare = pow(normRes, 2.f);
 		sumNormResSquare += normResSquare;
 	}
 
-	edaTransformSlope = sumNormResMultNormAdcVal / sumNormResSquare;
-	edaTransformIntercept = meanAdcVal - meanRes * edaTransformSlope;
+	edaTransformSlope = sumNormResSquare / sumNormResMultNormAdcVal;
+	edaTransformIntercept = meanRes - meanAdcVal * edaTransformSlope;
 
 	return true;
 }
 
 #ifdef ARDUINO
-bool EmotiBitEdaCalibration::unpackCalibPacket(const String &edaCalibPacket, int &packetVersion, RawValues_V3 &rawVals)
+bool EmotiBitEdaCalibration::unpackCalibPacket(const String &edaCalibPacket, uint8_t &packetVersion, RawValues_V2 &rawVals)
 {
 
 	String element;

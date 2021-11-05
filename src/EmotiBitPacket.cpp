@@ -212,7 +212,7 @@ bool EmotiBitPacket::getHeader(const vector<string>& packet, Header &packetHeade
 			if (packet.at(1) != "") {
 				//uint16_t tempPacketNumber = stoi(packet.at(1));
 				//if (tempPacketNumber - packetHeader.packetNumber > 1) {
-				//	cout << "**  Missed packet: " << packetHeader.packetNumber << "," << tempPacketNumber << "**" << endl;
+				//	cout << "**  Missed packet: " << packetHeader.packetNumber << EmotiBitPacket::PAYLOAD_DELIMITER << tempPacketNumber << "**" << endl;
 				//}
 				// ToDo: Figure out a way to deal with multiple packets of each number
 				//packetHeader.packetNumber = tempPacketNumber;
@@ -283,15 +283,15 @@ String EmotiBitPacket::headerToString(const Header &header)
 	String headerString;
 	headerString = "";
 	headerString += header.timestamp;
-	headerString += ",";
+	headerString += EmotiBitPacket::PAYLOAD_DELIMITER;
 	headerString += header.packetNumber;
-	headerString += ",";
+	headerString += EmotiBitPacket::PAYLOAD_DELIMITER;
 	headerString += header.dataLength;
-	headerString += ",";
+	headerString += EmotiBitPacket::PAYLOAD_DELIMITER;
 	headerString += header.typeTag;
-	headerString += ",";
+	headerString += EmotiBitPacket::PAYLOAD_DELIMITER;
 	headerString += header.protocolVersion;
-	headerString += ",";
+	headerString += EmotiBitPacket::PAYLOAD_DELIMITER;
 	headerString += header.dataReliability;
 #else
 string EmotiBitPacket::headerToString(const Header &header)
@@ -299,15 +299,15 @@ string EmotiBitPacket::headerToString(const Header &header)
 	string headerString;
 	headerString = "";
 	headerString += ofToString(header.timestamp);
-	headerString += ",";
+	headerString += EmotiBitPacket::PAYLOAD_DELIMITER;
 	headerString += ofToString(header.packetNumber);
-	headerString += ",";
+	headerString += EmotiBitPacket::PAYLOAD_DELIMITER;
 	headerString += ofToString(header.dataLength);
-	headerString += ",";
+	headerString += EmotiBitPacket::PAYLOAD_DELIMITER;
 	headerString += ofToString(header.typeTag);
-	headerString += ",";
+	headerString += EmotiBitPacket::PAYLOAD_DELIMITER;
 	headerString += ofToString((int)header.protocolVersion);
-	headerString += ",";
+	headerString += EmotiBitPacket::PAYLOAD_DELIMITER;
 	headerString += ofToString((int)header.dataReliability);
 #endif
 	//createPacketHeader(tempHeader, timestamp, typeTag, dataLen);
@@ -363,7 +363,7 @@ String EmotiBitPacket::createPacket(const String &typeTag, const uint16_t &packe
 {
 	// ToDo: Generalize createPacket to work across more platforms inside EmotiBitPacket
 	EmotiBitPacket::Header header = EmotiBitPacket::createHeader(typeTag, millis(), packetNumber, dataLength, protocolVersion, dataReliability);
-	return EmotiBitPacket::headerToString(header) + "," + data + EmotiBitPacket::PACKET_DELIMITER_CSV;
+	return EmotiBitPacket::headerToString(header) + EmotiBitPacket::PAYLOAD_DELIMITER + data + EmotiBitPacket::PACKET_DELIMITER_CSV;
 }
 #else
 int16_t EmotiBitPacket::getPacketElement(const string &packet, string &element, uint16_t startChar)
@@ -406,7 +406,7 @@ string EmotiBitPacket::createPacket(const string &typeTag, const uint16_t &packe
 	}
 	else
 	{
-		return EmotiBitPacket::headerToString(header) + "," + data + EmotiBitPacket::PACKET_DELIMITER_CSV;
+		return EmotiBitPacket::headerToString(header) + EmotiBitPacket::PAYLOAD_DELIMITER + data + EmotiBitPacket::PACKET_DELIMITER_CSV;
 	}
 }
 
@@ -418,7 +418,7 @@ string EmotiBitPacket::createPacket(const string &typeTag, const uint16_t &packe
 	string packet = EmotiBitPacket::headerToString(header);
 	for (string s : data)
 	{
-		packet += "," + s;
+		packet += EmotiBitPacket::PAYLOAD_DELIMITER + s;
 	}
 	packet += EmotiBitPacket::PACKET_DELIMITER_CSV;
 	return packet;
