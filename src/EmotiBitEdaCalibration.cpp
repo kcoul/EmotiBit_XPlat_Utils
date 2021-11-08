@@ -85,7 +85,41 @@ bool EmotiBitEdaCalibration::unpackCalibPacket(const String &edaCalibPacket, uin
 	}
 }
 
+void EmotiBitEdaCalibration::print(const RawValues_V0 &rawVals)
+{
+	Serial.print("0R, \t");
+	Serial.println(rawVals.edl0R);
+	Serial.print("10K, \t");
+	Serial.println(rawVals.edl0K);
+	Serial.print("1M, \t");
+	Serial.println(rawVals.edl1M);
+	Serial.print("10M, \t");
+	Serial.println(rawVals.edl10M);
+	Serial.print("EDR, \t");
+	Serial.println(rawVals.edrAvg);
+}
 
+void EmotiBitEdaCalibration::print(const RawValues_V2 &rawVals)
+{
+	for (uint8_t i; i < rawVals.nVals; i++)
+	{
+		if (rawVals.vals[i].res < 1000) {
+			Serial.print(rawVals.vals[i].res);
+			Serial.print("R");
+		}
+		else if (rawVals.vals[i].res < 1000000) {
+			Serial.print(rawVals.vals[i].res / 1000.f);
+			Serial.print("K");
+		}
+		else 
+			Serial.print(rawVals.vals[i].res / 1000000.f);
+			Serial.print("M");
+		}
+		Serial.print(", \t");
+		Serial.print(rawVals.vals[i].val);
+		Serial.println("");
+	}	
+}
 #endif // ARDUINO
 
 #ifndef ARDUINO

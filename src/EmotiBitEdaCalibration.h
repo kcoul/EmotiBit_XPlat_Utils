@@ -61,6 +61,12 @@ public:
 	*/
 	static bool unpackCalibPacket(const String &edaCalibPacket, uint8_t &packetVersion, RawValues_V2 &rawVals);
 
+	/*!
+	@brief Serial.print contents of RawValues structs
+	*/
+	static void print(const RawValues_V0 &rawVals);
+	static void print(const RawValues_V2 &rawVals);
+
 #else
 	// ToDo: Consider templating createCalibPacket
 	/*!
