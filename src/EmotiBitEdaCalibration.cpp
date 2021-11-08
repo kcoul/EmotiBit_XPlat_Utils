@@ -58,23 +58,30 @@ bool EmotiBitEdaCalibration::unpackCalibPacket(const String &edaCalibPacket, uin
 	int16_t nextStartChar;
 
 	nextStartChar = EmotiBitPacket::getPacketElement(edaCalibPacket, element, 0);
+	if (nextStartChar == -1) return false; // error: ran out of packet elements before nVals
 	if (element.equals(String(EmotiBitFactoryTest::TypeTag::EDA_CALIBRATION_VALUES)))
 	{
 		nextStartChar = EmotiBitPacket::getPacketElement(edaCalibPacket, element, nextStartChar);
+		if (nextStartChar == -1) return false; // error: ran out of packet elements before nVals
 		packetVersion = element.toInt();
-		if (packetVersion != 3) return false; // error: packetVersion mismatch with fn signature
+		if (packetVersion != V2) return false; // error: packetVersion mismatch with fn signature
+		//Serial.println(packetVersion);
 
 		nextStartChar = EmotiBitPacket::getPacketElement(edaCalibPacket, element, nextStartChar);
+		if (nextStartChar == -1) return false; // error: ran out of packet elements before nVals
 		rawVals.nVals = element.toInt();
+		//Serial.println(rawVals.nVals);
 
 		for (size_t i = 0; i < rawVals.nVals; i++)
 		{
 			nextStartChar = EmotiBitPacket::getPacketElement(edaCalibPacket, element, nextStartChar);
 			rawVals.vals[i].res = element.toFloat();
+			//Serial.println(rawVals.vals[i].res);
 			if (nextStartChar == -1) return false; // error: ran out of packet elements before nVals
 
 			nextStartChar = EmotiBitPacket::getPacketElement(edaCalibPacket, element, nextStartChar);
 			rawVals.vals[i].adcVal = element.toFloat();
+			//Serial.println(rawVals.vals[i].adcVal);
 			if (i < rawVals.nVals - 1 && nextStartChar == -1) return false; // error: ran out of packet elements before nVals
 		}
 		return true;
@@ -90,7 +97,7 @@ void EmotiBitEdaCalibration::print(const RawValues_V0 &rawVals)
 	Serial.print("0R, \t");
 	Serial.println(rawVals.edl0R);
 	Serial.print("10K, \t");
-	Serial.println(rawVals.edl0K);
+	Serial.println(rawVals.edl10K);
 	Serial.print("1M, \t");
 	Serial.println(rawVals.edl1M);
 	Serial.print("10M, \t");
@@ -101,22 +108,25 @@ void EmotiBitEdaCalibration::print(const RawValues_V0 &rawVals)
 
 void EmotiBitEdaCalibration::print(const RawValues_V2 &rawVals)
 {
-	for (uint8_t i; i < rawVals.nVals; i++)
+	for (uint8_t i = 0; i < rawVals.nVals; i++)
 	{
-		if (rawVals.vals[i].res < 1000) {
-			Serial.print(rawVals.vals[i].res);
+		if (rawVals.vals[i].res < 1000) 
+		{
+			Serial.print(rawVals.vals[i].res, 0);
 			Serial.print("R");
 		}
-		else if (rawVals.vals[i].res < 1000000) {
-			Serial.print(rawVals.vals[i].res / 1000.f);
+		else if (rawVals.vals[i].res < 1000000) 
+		{
+			Serial.print(rawVals.vals[i].res / 1000.f, 0);
 			Serial.print("K");
 		}
 		else 
-			Serial.print(rawVals.vals[i].res / 1000000.f);
+		{
+			Serial.print(rawVals.vals[i].res / 1000000.f, 0);
 			Serial.print("M");
 		}
 		Serial.print(", \t");
-		Serial.print(rawVals.vals[i].val);
+		Serial.print(rawVals.vals[i].adcVal, 6);
 		Serial.println("");
 	}	
 }
