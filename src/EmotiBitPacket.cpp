@@ -359,6 +359,7 @@ int16_t EmotiBitPacket::getPacketKeyedValue(const String &packet, const String &
 }
 
 #ifdef ARDUINO
+
 String EmotiBitPacket::createPacket(const String &typeTag, const uint16_t &packetNumber, const String &data, const uint16_t &dataLength, const uint8_t& protocolVersion, const uint8_t& dataReliability)
 {
 	// ToDo: Generalize createPacket to work across more platforms inside EmotiBitPacket
