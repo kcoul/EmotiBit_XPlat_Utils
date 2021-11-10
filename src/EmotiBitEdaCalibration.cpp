@@ -1,3 +1,32 @@
+/**************************************************************************/
+/*!
+		@file     EmotiBitEdaCalibration.cpp
+		@author   Sean Montgomery (EmotiBit)
+
+		@mainpage EDA Calibration helper for EmotiBit
+
+		@section intro_sec Introduction
+
+		This is a library to help with EDA calibration for EmotiBit.
+
+		EmotiBit invests time and resources providing this open source code,
+		please support EmotiBit and open-source hardware by purchasing
+		products from EmotiBit!
+
+		@section author Author
+
+		Written by Sean Montgomery for EmotiBit.
+
+		@section  HISTORY
+
+		v1.0  - First release
+
+		@section license License
+
+		BSD license, all text here must be included in any redistribution
+*/
+/**************************************************************************/
+
 
 #include "EmotiBitEdaCalibration.h"
 #include "EmotiBitFactoryTest.h"
@@ -51,7 +80,7 @@ bool EmotiBitEdaCalibration::calculate(const RawValues_V2 &rawVals, float &edaTr
 }
 
 #ifdef ARDUINO
-bool EmotiBitEdaCalibration::unpackCalibPacket(const String &edaCalibPacket, uint8_t &packetVersion, RawValues_V2 &rawVals)
+bool EmotiBitEdaCalibration::unpackCalibPacket(const String &edaCalibPacket, uint8_t &payloadVersion, RawValues_V2 &rawVals)
 {
 
 	String element;
@@ -63,9 +92,9 @@ bool EmotiBitEdaCalibration::unpackCalibPacket(const String &edaCalibPacket, uin
 	{
 		nextStartChar = EmotiBitPacket::getPacketElement(edaCalibPacket, element, nextStartChar);
 		if (nextStartChar == -1) return false; // error: ran out of packet elements before nVals
-		packetVersion = element.toInt();
-		if (packetVersion != V2) return false; // error: packetVersion mismatch with fn signature
-		//Serial.println(packetVersion);
+		payloadVersion = element.toInt();
+		if (payloadVersion != V2) return false; // error: payloadVersion mismatch with fn signature
+		//Serial.println(payloadVersion);
 
 		nextStartChar = EmotiBitPacket::getPacketElement(edaCalibPacket, element, nextStartChar);
 		if (nextStartChar == -1) return false; // error: ran out of packet elements before nVals
