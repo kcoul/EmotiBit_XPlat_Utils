@@ -1,17 +1,19 @@
 #ifdef ARDUINO
 	#include <Arduino.h>
+	#include "EmotiBitVersionController.h"
 #else
 	// ToDo: Remove OF dependency for ofToString()
 	#include "ofMain.h"
 #endif // !ARDUINO
 #include "EmotiBitVariants.h"
 
+
 #ifdef ARDUINO
 struct Barcode
 {
-	String code = "\0";
+	String rawCode = "\0";
 	String sku = "\0";
-	String emotibitVersion = "\0";
+	String hwVersion = "\0";
 	String emotibitNumber = "\0";
 };
 #endif
@@ -72,8 +74,9 @@ public:
 	#ifdef ARDUINO
 	static void updateOutputString(String &output, const char* testType, const char* result);
 	static void sendMessage(String typeTag, String payload = "");
-	static void parseBarcode(Barcode* barcode);
+	static void parseBarcode(String rawBarcode, Barcode* barcode);
 	static bool validateVersionEstimate(String barcode, String estimate);
+	static void convertBarcodeToVariantInfo(Barcode barcode, EmotiBitVariantInfo &emotibitVariantInfo);
 #else
 	static string createPacket(string typeTag, string payload = "");
 #endif

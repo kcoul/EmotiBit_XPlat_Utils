@@ -68,25 +68,50 @@ void EmotiBitFactoryTest::sendMessage(String typeTag, String payload)
 }
 
 	// Parses the barcode 
-void EmotiBitFactoryTest::parseBarcode(Barcode* barcode)
+void EmotiBitFactoryTest::parseBarcode(String rawBarcode, Barcode* barcode)
 {
-	barcode->sku = barcode->code.substring(0, barcode->code.indexOf(BARCODE_DELIMITER));
-	barcode->code = barcode->code.substring(barcode->code.indexOf(BARCODE_DELIMITER) + 1);
-	barcode->emotibitVersion = barcode->code.substring(0, barcode->code.indexOf(BARCODE_DELIMITER));
-	barcode->emotibitNumber = barcode->code.substring(barcode->code.indexOf(BARCODE_DELIMITER) + 1);
+	barcode->rawCode = rawBarcode;
+	barcode->sku = rawBarcode.substring(0, rawBarcode.indexOf(BARCODE_DELIMITER));
+	rawBarcode = rawBarcode.substring(rawBarcode.indexOf(BARCODE_DELIMITER) + 1);
+	barcode->hwVersion = rawBarcode.substring(0, rawBarcode.indexOf(BARCODE_DELIMITER));
+	barcode->emotibitNumber = rawBarcode.substring(rawBarcode.indexOf(BARCODE_DELIMITER) + 1);
 }
 
 bool EmotiBitFactoryTest::validateVersionEstimate(String barcode, String estimate)
 {
 	// remove the leading "V" in version
-	barcode.remove(barcode.indexOf(EmotiBitVariants::VERSION_PREFIX),1);
-	estimate.remove(estimate.indexOf(EmotiBitVariants::VERSION_PREFIX),1);
+	barcode.remove(barcode.indexOf(EmotiBitVariants::HARDWARE_VERSION_PREFIX),1);
+	estimate.remove(estimate.indexOf(EmotiBitVariants::HARDWARE_VERSION_PREFIX),1);
 	if (barcode.toInt() == estimate.toInt())
 		return true;
 	else
 		return false;
 }
+
+void EmotiBitFactoryTest::convertBarcodeToVariantInfo(Barcode barcode, EmotiBitVariantInfo &emotibitVariantInfo)
+{
+	for (uint8_t i = 0; i < (uint8_t)EmotiBitVersionController::EmotiBitVersion::length; i++)
+	{
+		String hwVersionStr = EmotiBitVersionController::getHardwareVersion((EmotiBitVersionController::EmotiBitVersion)i);
+		String barcodeHwVersion = barcode.hwVersion;
+		hwVersionStr.remove(hwVersionStr.indexOf(EmotiBitVariants::HARDWARE_VERSION_PREFIX), 1);
+		barcodeHwVersion.remove(barcodeHwVersion.indexOf(EmotiBitVariants::HARDWARE_VERSION_PREFIX), 1);
+		if (barcodeHwVersion.toInt() == hwVersionStr.toInt())
+			emotibitVariantInfo.hwVersion = i;
+	}
+
+	for (uint8_t i = 0; i < (uint8_t)EmotiBitVariants::EmotiBitSkuType::length; i++)
+	{
+		if (barcode.sku.equals(EmotiBitVariants::EmotiBitSkuTags[i]))
+		{
+			emotibitVariantInfo.sku = i;
+		}
+	}
+	emotibitVariantInfo.emotiBitNumber = barcode.emotibitNumber.toInt();
+}
 #else
+
+
 string EmotiBitFactoryTest::createPacket(string typeTag, string payload)
 {
 	string s = "";
