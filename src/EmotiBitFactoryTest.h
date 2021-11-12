@@ -75,7 +75,7 @@ public:
 	static void parseBarcode(Barcode* barcode);
 	static bool validateVersionEstimate(String barcode, String estimate);
 #else
-	string createPacket(EmotiBitFactoryTest::TypeTag typeTag, string payload);
+	static string createPacket(string typeTag, string payload = "");
 #endif
 };
 
