@@ -60,6 +60,7 @@ public:
 		static const char* VERSION_VALIDATION;
 		static const char* SKU_VALIDATION;
 		static const char* EDA_CALIBRATION_VALUES;
+		static const char* EDA_CALIBRATION_ACK;
 	};
 
 	static const char MSG_START_CHAR = '@';
@@ -69,10 +70,12 @@ public:
 	static const char INIT_FACTORY_TEST = 'F';
 	static const char FIRMWARE_DELIMITER = '.';
 	#ifdef ARDUINO
-		static void updateOutputString(String &output, const char* testType, const char* result);
-		static void sendMessage(String typeTag, String payload = "");
-		static void parseBarcode(Barcode* barcode);
-		static bool validateVersionEstimate(String barcode, String estimate);
-	#endif
+	static void updateOutputString(String &output, const char* testType, const char* result);
+	static void sendMessage(String typeTag, String payload = "");
+	static void parseBarcode(Barcode* barcode);
+	static bool validateVersionEstimate(String barcode, String estimate);
+#else
+	string createPacket(EmotiBitFactoryTest::TypeTag typeTag, string payload);
+#endif
 };
 
