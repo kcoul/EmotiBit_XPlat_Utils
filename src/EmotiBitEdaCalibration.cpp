@@ -162,7 +162,7 @@ void EmotiBitEdaCalibration::print(const RawValues_V2 &rawVals)
 #endif // ARDUINO
 
 #ifndef ARDUINO
-string EmotiBitEdaCalibration::createCalibPacket(int payloadVersion, RawValues_V3 rawVals)
+string EmotiBitEdaCalibration::createCalibPacket(int payloadVersion, RawValues_V2 rawVals)
 {
 	string out;
 	out += ofToString(EmotiBitFactoryTest::TypeTag::EDA_CALIBRATION_VALUES) + EmotiBitPacket::PAYLOAD_DELIMITER;
