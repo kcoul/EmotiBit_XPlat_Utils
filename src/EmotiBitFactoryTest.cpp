@@ -85,4 +85,16 @@ bool EmotiBitFactoryTest::validateVersionEstimate(String barcode, String estimat
 	else
 		return false;
 }
+#else
+string EmotiBitFactoryTest::createPacket(EmotiBitFactoryTest::TypeTag typeTag, string payload)
+{
+	string s = "";
+	s += EmotiBitFactoryTest::MSG_START_CHAR;
+	s += typeTag;
+	if (payload.length > 0) {
+		s += EmotiBitFactoryTest::PAYLOAD_DELIMITER;
+		s += payload;
+	}
+	s += EmotiBitFactoryTest::MSG_TERM_CHAR;
+}
 #endif

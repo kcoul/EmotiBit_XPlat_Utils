@@ -122,6 +122,8 @@ public:
 		@return string with csv calibration packet data
 	*/
 	static string createCalibPacket(int version, RawValues_V2 rawVals); 
+
+	static vector<float> getAdcVals(RawValues_V2 rawVals);
 #endif // ARDUINO
 
 
