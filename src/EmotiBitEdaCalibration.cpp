@@ -32,9 +32,6 @@
 #include "EmotiBitFactoryTest.h"
 #include "EmotiBitPacket.h"
 
-#ifndef ARDUINO
-#include <string>
-#endif
 
 bool EmotiBitEdaCalibration::calculate(const RawValues_V0 &rawVals, float &vRef1, float &vRef2, float &rfeedback)
 {
@@ -163,19 +160,20 @@ void EmotiBitEdaCalibration::print(const RawValues_V2 &rawVals)
 		Serial.println("");
 	}	
 }
-#endif // ARDUINO
+#endif // !ARDUINO
 
 #ifndef ARDUINO
-string EmotiBitEdaCalibration::createCalibPacket(int payloadVersion, RawValues_V2 rawVals)
+
+std::string EmotiBitEdaCalibration::createCalibPacket(int payloadVersion, RawValues_V2 rawVals)
 {
-	string out;
+	std::string out;
 	out += std::string(EmotiBitFactoryTest::TypeTag::EDA_CALIBRATION_VALUES) + EmotiBitPacket::PAYLOAD_DELIMITER;
-	out += to_string(payloadVersion) + EmotiBitPacket::PAYLOAD_DELIMITER;
-	out += to_string(rawVals.nVals) + EmotiBitPacket::PAYLOAD_DELIMITER;
+	out += std::to_string(payloadVersion) + EmotiBitPacket::PAYLOAD_DELIMITER;
+	out += std::to_string(rawVals.nVals) + EmotiBitPacket::PAYLOAD_DELIMITER;
 	for (size_t i = 0; i < rawVals.nVals; i++)
 	{
-		out += rawVals.vals[i].res + EmotiBitPacket::PAYLOAD_DELIMITER;
-		out += rawVals.vals[i].adcVal;
+		out += std::to_string(rawVals.vals[i].res) + EmotiBitPacket::PAYLOAD_DELIMITER;
+		out += std::to_string(rawVals.vals[i].adcVal);
 		if (i < rawVals.nVals - 1)
 		{
 			out += EmotiBitPacket::PAYLOAD_DELIMITER;
@@ -184,13 +182,15 @@ string EmotiBitEdaCalibration::createCalibPacket(int payloadVersion, RawValues_V
 	return out;
 }
 
-vector<float> EmotiBitEdaCalibration::getAdcVals(RawValues_V2 rawVals)
+std::vector<float> EmotiBitEdaCalibration::getAdcVals(RawValues_V2 rawVals)
 {
-	vector<float> out;
+	std::vector<float> out;
 	for (unsigned int i = 0; i < rawVals.nVals; i++)
 	{
 		out.push_back(rawVals.vals[i].adcVal);
 	}
+	return out;
 }
+
 #endif // !ARDUINO
 
