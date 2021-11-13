@@ -1,4 +1,5 @@
 #include "EmotiBitFactoryTest.h"
+#include "EmotiBitVersionController.h"
 
 // Factory Test Typetags
 const char* EmotiBitFactoryTest::TypeTag::EMOTIBIT_VERSION = "EV\0";
