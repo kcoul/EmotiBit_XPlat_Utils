@@ -33,9 +33,9 @@ enum class EmotiBitVariantDataFormat {
 	@brief Struct to store the HW, SKU and emotiBit number.
 */
 struct EmotiBitVariantInfo {
+	uint32_t emotiBitNumber;
 	uint8_t hwVersion;
 	uint8_t sku;
-	uint32_t emotiBitNumber;
 };
 
 #ifdef ARDUINO
