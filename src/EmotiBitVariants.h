@@ -11,16 +11,20 @@ class EmotiBitVariants
 {
 public:
 	
-	enum class EmotiBitSkuType
-	{
-		INVALID = -1,
-		EM = 0,
-		MD = 1,
-		length 
-	};
+	//enum class EmotiBitSkuType
+	//{
+	//	INVALID = -1,
+	//	EM = 0,
+	//	MD = 1,
+	//	length 
+	//};
 
-	static const char* EmotiBitSkuTags[2]; 
+	//static const char* EmotiBitSkuTags[2];
+
+	static const char* EMOTIBIT_SKU_MD;
+	static const char* EMOTIBIT_SKU_EM;
 	static const char HARDWARE_VERSION_PREFIX = 'V';
+	static const uint8_t EMOTIBIT_SKU_LENGTH = 3;
 };
 
 enum class EmotiBitVariantDataFormat {
@@ -34,8 +38,8 @@ enum class EmotiBitVariantDataFormat {
 */
 struct EmotiBitVariantInfo {
 	uint32_t emotiBitNumber;
+	char sku[3];
 	uint8_t hwVersion;
-	uint8_t sku;
 };
 
 #ifdef ARDUINO
