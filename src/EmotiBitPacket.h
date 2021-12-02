@@ -199,6 +199,8 @@ public:
 		//static const char* HELLO_COMPUTER;
 		static const char* EMOTIBIT_CONNECT;
 		static const char* EMOTIBIT_DISCONNECT;
+		static const char* SERIAL_DATA_ON;
+		static const char* SERIAL_DATA_OFF;
 		//static const char* KEEP_ALIVE;
 		static const char* ACK;
 		static const char* REQUEST_DATA;
