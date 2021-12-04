@@ -36,6 +36,8 @@ const char* EmotiBitFactoryTest::TypeTag::TEST_PASS = "PASS\0";
 const char* EmotiBitFactoryTest::TypeTag::TEST_FAIL = "FAIL\0";
 const char* EmotiBitFactoryTest::TypeTag::VERSION_VALIDATION = "VV\0";
 const char* EmotiBitFactoryTest::TypeTag::SKU_VALIDATION = "SV\0";
+const char* EmotiBitFactoryTest::TypeTag::EDA_CALIBRATION_VALUES = "EC\0";
+const char* EmotiBitFactoryTest::TypeTag::EDA_CALIBRATION_ACK = "EK\0";
 
 #ifdef ARDUINO
 void EmotiBitFactoryTest::updateOutputString(String &output, const char* testType, const char* result)
@@ -83,5 +85,18 @@ bool EmotiBitFactoryTest::validateVersionEstimate(String barcode, String estimat
 		return true;
 	else
 		return false;
+}
+#else
+string EmotiBitFactoryTest::createPacket(string typeTag, string payload)
+{
+	string s = "";
+	s += EmotiBitFactoryTest::MSG_START_CHAR;
+	s += typeTag;
+	if (payload.length() > 0) {
+		s += EmotiBitFactoryTest::PAYLOAD_DELIMITER;
+		s += payload;
+	}
+	s += EmotiBitFactoryTest::MSG_TERM_CHAR;
+	return s;
 }
 #endif
