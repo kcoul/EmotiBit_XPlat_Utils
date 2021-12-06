@@ -64,6 +64,8 @@ public:
 		static const char* SKU_VALIDATION;
 		static const char* EDA_CALIBRATION_VALUES;
 		static const char* EDA_CALIBRATION_ACK;
+		static const char* EMOTIBIT_READY;
+		static const char* EMOTIBIT_STORAGE;
 	};
 
 	static const char MSG_START_CHAR = '@';
@@ -75,7 +77,7 @@ public:
 	#ifdef ARDUINO
 	static void updateOutputString(String &output, const char* testType, const char* result);
 	static void sendMessage(String typeTag, String payload = "");
-	static void parseBarcode(String rawBarcode, Barcode* barcode);
+	static void parseBarcode(Barcode* barcode);
 	static bool validateVersionEstimate(String barcode, String estimate);
 	static void convertBarcodeToVariantInfo(Barcode barcode, EmotiBitVariantInfo &emotiBitVariantInfo);
 #else

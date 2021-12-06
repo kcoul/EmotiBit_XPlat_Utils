@@ -39,6 +39,8 @@ const char* EmotiBitFactoryTest::TypeTag::VERSION_VALIDATION = "VV\0";
 const char* EmotiBitFactoryTest::TypeTag::SKU_VALIDATION = "SV\0";
 const char* EmotiBitFactoryTest::TypeTag::EDA_CALIBRATION_VALUES = "EC\0";
 const char* EmotiBitFactoryTest::TypeTag::EDA_CALIBRATION_ACK = "EK\0";
+const char* EmotiBitFactoryTest::TypeTag::EMOTIBIT_READY = "ER\0";
+const char* EmotiBitFactoryTest::TypeTag::EMOTIBIT_STORAGE = "ES\0";
 
 #ifdef ARDUINO
 void EmotiBitFactoryTest::updateOutputString(String &output, const char* testType, const char* result)
@@ -46,7 +48,7 @@ void EmotiBitFactoryTest::updateOutputString(String &output, const char* testTyp
 	output += testType;
 	output += TypeTag::TEST_RESULT_DELIMITER;
 	output += result;
-	if(result != TypeTag::NULL_VAL)
+	if (testType != TypeTag::SETUP_COMPLETE)
 	{
 		output += TypeTag::TEST_TYPE_DELIMITER;
 	}
@@ -69,9 +71,10 @@ void EmotiBitFactoryTest::sendMessage(String typeTag, String payload)
 }
 
 	// Parses the barcode 
-void EmotiBitFactoryTest::parseBarcode(String rawBarcode, Barcode* barcode)
+void EmotiBitFactoryTest::parseBarcode(Barcode* barcode)
 {
-	barcode->rawCode = rawBarcode;
+	String rawBarcode;
+	rawBarcode = barcode->rawCode;
 	barcode->sku = rawBarcode.substring(0, rawBarcode.indexOf(BARCODE_DELIMITER));
 	rawBarcode = rawBarcode.substring(rawBarcode.indexOf(BARCODE_DELIMITER) + 1);
 	barcode->hwVersion = rawBarcode.substring(0, rawBarcode.indexOf(BARCODE_DELIMITER));
