@@ -126,10 +126,11 @@ string EmotiBitFactoryTest::createPacket(string typeTag, string payload)
 	string s = "";
 	s += EmotiBitFactoryTest::MSG_START_CHAR;
 	s += typeTag;
-	if (payload.length > 0) {
+	if (payload.length() > 0) {
 		s += EmotiBitFactoryTest::PAYLOAD_DELIMITER;
 		s += payload;
 	}
 	s += EmotiBitFactoryTest::MSG_TERM_CHAR;
+	return s;
 }
 #endif

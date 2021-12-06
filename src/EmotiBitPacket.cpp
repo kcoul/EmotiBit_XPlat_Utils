@@ -152,22 +152,22 @@ int16_t EmotiBitPacket::getHeader(const String &packet, Header &packetHeader)
 	int16_t commaN1;
 	// timestamp
 	commaN = 0;
-	commaN1 = packet.indexOf(',', commaN);
+	commaN1 = packet.indexOf(PAYLOAD_DELIMITER, commaN);
 	if (commaN1 == -1) return MALFORMED_HEADER;
 	packetHeader.timestamp = packet.substring(commaN, commaN1).toInt();
 	// packet_number
 	commaN = commaN1 + 1;
-	commaN1 = packet.indexOf(',', commaN);
+	commaN1 = packet.indexOf(PAYLOAD_DELIMITER, commaN);
 	if (commaN1 == -1) return MALFORMED_HEADER;
 	packetHeader.packetNumber = packet.substring(commaN, commaN1).toInt();
 	// data_length
 	commaN = commaN1 + 1;
-	commaN1 = packet.indexOf(',', commaN);
+	commaN1 = packet.indexOf(PAYLOAD_DELIMITER, commaN);
 	if (commaN1 == -1) return MALFORMED_HEADER;
 	packetHeader.dataLength = packet.substring(commaN, commaN1).toInt();
 	// typetag
 	commaN = commaN1 + 1;
-	commaN1 = packet.indexOf(',', commaN);
+	commaN1 = packet.indexOf(PAYLOAD_DELIMITER, commaN);
 	if (commaN1 == -1) return MALFORMED_HEADER;
 #ifdef ARDUINO
 	// ToDo: Handle string = String more gracefully
@@ -177,12 +177,12 @@ int16_t EmotiBitPacket::getHeader(const String &packet, Header &packetHeader)
 #endif
 	// protocol_version
 	commaN = commaN1 + 1;
-	commaN1 = packet.indexOf(',', commaN);
+	commaN1 = packet.indexOf(PAYLOAD_DELIMITER, commaN);
 	if (commaN1 == -1) return MALFORMED_HEADER;
 	packetHeader.protocolVersion = packet.substring(commaN, commaN1).toInt();
 	// data_reliability
 	commaN = commaN1 + 1;
-	commaN1 = packet.indexOf(',', commaN);
+	commaN1 = packet.indexOf(PAYLOAD_DELIMITER, commaN);
 	if (commaN1 == -1) 
 	{
 		// handle case when no ,[data] exists
@@ -322,7 +322,7 @@ int16_t EmotiBitPacket::getPacketElement(const String& packet, String& element, 
 {
 	int16_t nextStartChar = -1;
 
-	int16_t commaN1 = packet.indexOf(',', startChar);
+	int16_t commaN1 = packet.indexOf(PAYLOAD_DELIMITER, startChar);
 
 	if (commaN1 != -1) 
 	{

@@ -28,12 +28,18 @@
 /**************************************************************************/
 
 #pragma once
+
 #ifdef ARDUINO
-	#include <String.h>
-	#include <WString.h>
-	#include <stdint.h>
-#else
-	#include <string>
+#include <String.h>
+#include <WString.h>
+#include <stdint.h>
+#endif
+
+#ifndef ARDUINO
+#include <string>
+#include <vector>
+//#include "ofMain.h"	// ToDo: sort out chrono overload to remove this dependency
+//using namespace std;
 #endif
 
 class EmotiBitEdaCalibration
@@ -79,6 +85,7 @@ public:
 		CalibPair vals[nCalibVals_V2];
 	};
 
+
 	/*!
 	@brief Calculate EDA calibration values
 	@param rawVals Struct with raw values to calculate derivatives
@@ -113,19 +120,18 @@ public:
 	static void print(const RawValues_V0 &rawVals);
 	static void print(const RawValues_V2 &rawVals);
 
-#else
+#endif // ARDUINO
+
+#ifndef ARDUINO
 	// ToDo: Consider templating createCalibPacket
 	/*!
 		@brief pack a RawValues_V2 struct into a string for serial communication
-		@param version Version of the included rawVals
+		@param payloadVersion Version of the included rawVals
 		@param rawVals Struct of the raw calibration values
 		@return string with csv calibration packet data
 	*/
-	static string createCalibPacket(int version, RawValues_V2 rawVals); 
+	static std::string createCalibPacket(int payloadVersion, RawValues_V2 rawVals);
 
-	static vector<float> getAdcVals(RawValues_V2 rawVals);
-#endif // ARDUINO
-
-
-
+	static std::vector<float> getAdcVals(RawValues_V2 rawVals);
+#endif // !ARDUINO
 };
