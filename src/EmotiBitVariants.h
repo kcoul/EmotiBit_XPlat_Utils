@@ -10,16 +10,6 @@
 class EmotiBitVariants
 {
 public:
-	
-	//enum class EmotiBitSkuType
-	//{
-	//	INVALID = -1,
-	//	EM = 0,
-	//	MD = 1,
-	//	length 
-	//};
-
-	//static const char* EmotiBitSkuTags[2];
 
 	static const char* EMOTIBIT_SKU_MD;
 	static const char* EMOTIBIT_SKU_EM;
