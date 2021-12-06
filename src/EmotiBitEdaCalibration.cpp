@@ -48,16 +48,17 @@ bool EmotiBitEdaCalibration::calculate(const RawValues_V2 &rawVals, float &edaTr
 	// ToDo: Consider optimizing calculation for maintaining float resolution
 	float meanRes = 0;
 	float meanAdcVal = 0;
-
+	uint8_t nValsConsidered = 0;
 	// Skip first and last rawVals because they were empirically 
 	// determined to distort the best fit
 	for (size_t i = 1; i < rawVals.nVals - 1; i++)
 	{
 		meanRes += rawVals.vals[i].res;
 		meanAdcVal += rawVals.vals[i].adcVal;
+		nValsConsidered++;
 	}
-	meanRes /= rawVals.nVals;
-	meanAdcVal /= rawVals.nVals;
+	meanRes /= nValsConsidered;
+	meanAdcVal /= nValsConsidered;
 
 	float normRes;
 	float normAdcVal;
@@ -66,7 +67,7 @@ bool EmotiBitEdaCalibration::calculate(const RawValues_V2 &rawVals, float &edaTr
 	float normResSquare;
 	float sumNormResSquare = 0;
 
-	for (size_t i = 0; i < rawVals.nVals; i++)
+	for (size_t i = 1; i < rawVals.nVals - 1; i++)
 	{
 		normRes = rawVals.vals[i].res - meanRes;
 		normAdcVal = rawVals.vals[i].adcVal - meanAdcVal;
