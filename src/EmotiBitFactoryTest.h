@@ -15,7 +15,7 @@ struct Barcode
 	String rawCode = "\0";
 	String sku = "\0";
 	String hwVersion = "\0";
-	String emotibitNumber = "\0";
+	String emotibitSerialNumber = "\0";
 };
 #endif
 

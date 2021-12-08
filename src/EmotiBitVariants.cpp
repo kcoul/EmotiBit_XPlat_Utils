@@ -8,9 +8,9 @@ void printEmotiBitVariantInfo(EmotiBitVariantInfo emotibitVariantInfo)
 {
 	Serial.print("EmotiBit HW Version: "); Serial.println(EmotiBitVersionController::getHardwareVersion((EmotiBitVersionController::EmotiBitVersion)emotibitVariantInfo.hwVersion));
 	Serial.print("EmotiBit Sku Version: "); Serial.println(emotibitVariantInfo.sku);
-	if (emotibitVariantInfo.emotiBitNumber != UINT32_MAX)
+	if (emotibitVariantInfo.emotibitSerialNumber != UINT32_MAX)
 	{
-		Serial.print("EmotiBit Number: "); Serial.println(emotibitVariantInfo.emotiBitNumber);
+		Serial.print("EmotiBit Number: "); Serial.println(emotibitVariantInfo.emotibitSerialNumber);
 	}
 }
 #endif

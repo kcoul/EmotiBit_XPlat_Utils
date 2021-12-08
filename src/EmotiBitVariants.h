@@ -27,7 +27,7 @@ enum class EmotiBitVariantDataFormat {
 	@brief Struct to store the HW, SKU and emotiBit number.
 */
 struct EmotiBitVariantInfo {
-	uint32_t emotiBitNumber;
+	uint32_t emotibitSerialNumber;
 	char sku[3];
 	uint8_t hwVersion;
 };

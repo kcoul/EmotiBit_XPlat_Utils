@@ -78,7 +78,7 @@ void EmotiBitFactoryTest::parseBarcode(Barcode* barcode)
 	barcode->sku = rawBarcode.substring(0, rawBarcode.indexOf(BARCODE_DELIMITER));
 	rawBarcode = rawBarcode.substring(rawBarcode.indexOf(BARCODE_DELIMITER) + 1);
 	barcode->hwVersion = rawBarcode.substring(0, rawBarcode.indexOf(BARCODE_DELIMITER));
-	barcode->emotibitNumber = rawBarcode.substring(rawBarcode.indexOf(BARCODE_DELIMITER) + 1);
+	barcode->emotibitSerialNumber = rawBarcode.substring(rawBarcode.indexOf(BARCODE_DELIMITER) + 1);
 }
 
 bool EmotiBitFactoryTest::validateVersionEstimate(String barcode, String estimate)
@@ -118,7 +118,7 @@ void EmotiBitFactoryTest::convertBarcodeToVariantInfo(Barcode barcode, EmotiBitV
 	else if(barcode.sku.equals(EmotiBitVariants::EMOTIBIT_SKU_MD))
 		strncpy(emotiBitVariantInfo.sku, EmotiBitVariants::EMOTIBIT_SKU_MD, EmotiBitVariants::EMOTIBIT_SKU_LENGTH);
 
-	emotiBitVariantInfo.emotiBitNumber = barcode.emotibitNumber.toInt();
+	emotiBitVariantInfo.emotibitSerialNumber = barcode.emotibitSerialNumber.toInt();
 	//Serial.print("[convertBarcodeToVariantInfo] emotiBitNumber: "); Serial.println(emotiBitVariantInfo.emotiBitNumber);
 }
 #else
