@@ -103,15 +103,6 @@ void EmotiBitFactoryTest::convertBarcodeToVariantInfo(Barcode barcode, EmotiBitV
 		if (barcodeHwVersion.toInt() == hwVersionStr.toInt())
 			emotiBitVariantInfo.hwVersion = i;
 	}
-	//Serial.print("[convertBarcodeToVariantInfo] hwVersion: "); Serial.println(emotiBitVariantInfo.hwVersion);
-	//for (uint8_t i = 0; i < (uint8_t)EmotiBitVariants::EmotiBitSkuType::length; i++)
-	//{
-	//	if (barcode.sku.equals(EmotiBitVariants::EmotiBitSkuTags[i]))
-	//	{
-	//		emotiBitVariantInfo.sku = i;
-	//	}
-	//}
-	//Serial.print("[convertBarcodeToVariantInfo] sku: "); Serial.println(emotiBitVariantInfo.sku);
 	
 	if (barcode.sku.equals(EmotiBitVariants::EMOTIBIT_SKU_EM))
 		strncpy(emotiBitVariantInfo.sku, EmotiBitVariants::EMOTIBIT_SKU_EM,EmotiBitVariants::EMOTIBIT_SKU_LENGTH);
@@ -119,7 +110,6 @@ void EmotiBitFactoryTest::convertBarcodeToVariantInfo(Barcode barcode, EmotiBitV
 		strncpy(emotiBitVariantInfo.sku, EmotiBitVariants::EMOTIBIT_SKU_MD, EmotiBitVariants::EMOTIBIT_SKU_LENGTH);
 
 	emotiBitVariantInfo.emotibitSerialNumber = barcode.emotibitSerialNumber.toInt();
-	//Serial.print("[convertBarcodeToVariantInfo] emotiBitNumber: "); Serial.println(emotiBitVariantInfo.emotiBitNumber);
 }
 #else
 
