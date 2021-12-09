@@ -27,7 +27,8 @@ public:
 				// Factory Test Typetags
 		static const char* EMOTIBIT_VERSION;
 		static const char* FIRMWARE_VERSION;
-		static const char* EMOTIBIT_NUMBER;
+		static const char* EMOTIBIT_SERIAL_NUMBER;
+		static const char* EMOTIBIT_SKU_TYPE;
 		static const char* I2C_COMM_INIT;
 		static const char* FLASH;
 		static const char* SERIAL_NUMBER_WRITE;
