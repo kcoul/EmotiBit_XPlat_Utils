@@ -1,6 +1,7 @@
 #include "EmotiBitFactoryTest.h"
+#ifdef ARDUINO
 #include "EmotiBitVersionController.h"
-
+#endif
 // Factory Test Typetags
 const char* EmotiBitFactoryTest::TypeTag::EMOTIBIT_VERSION = "EV\0";
 const char* EmotiBitFactoryTest::TypeTag::FIRMWARE_VERSION = "FV\0";

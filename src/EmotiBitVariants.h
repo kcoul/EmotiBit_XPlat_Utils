@@ -14,7 +14,7 @@ public:
 	static const char* EMOTIBIT_SKU_MD;
 	static const char* EMOTIBIT_SKU_EM;
 	static const char HARDWARE_VERSION_PREFIX = 'V';
-	static const uint8_t EMOTIBIT_SKU_LENGTH = 3;
+	static const int EMOTIBIT_SKU_LENGTH = 3;
 };
 
 enum class EmotiBitVariantDataFormat {
@@ -23,7 +23,7 @@ enum class EmotiBitVariantDataFormat {
 	length
 };
 
-
+#ifdef ARDUINO
 struct EmotiBitVariantInfo_V0
 {
 	uint8_t hwVersion;
@@ -34,11 +34,11 @@ struct EmotiBitVariantInfo_V0
 */
 struct EmotiBitVariantInfo_V1 {
 	uint32_t emotibitSerialNumber;
-	char sku[3];
+	char sku[EmotiBitVariants::EMOTIBIT_SKU_LENGTH];
 	uint8_t hwVersion;
 };
 
-#ifdef ARDUINO
+
 /*!
 	@brief Prints all the information about the EmotiBit variant.
 	@param emotibitVariantInfo Takes in the stuct EmotiBitVariantInfo
