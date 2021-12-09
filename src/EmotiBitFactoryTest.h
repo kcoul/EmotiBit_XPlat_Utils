@@ -1,3 +1,5 @@
+#pragma once
+
 #ifdef ARDUINO
 	#include <Arduino.h>
 #else
@@ -6,13 +8,14 @@
 #endif // !ARDUINO
 #include "EmotiBitVariants.h"
 
+
 #ifdef ARDUINO
 struct Barcode
 {
-	String code = "\0";
+	String rawCode = "\0";
 	String sku = "\0";
-	String emotibitVersion = "\0";
-	String emotibitNumber = "\0";
+	String hwVersion = "\0";
+	String emotibitSerialNumber = "\0";
 };
 #endif
 
@@ -61,6 +64,8 @@ public:
 		static const char* SKU_VALIDATION;
 		static const char* EDA_CALIBRATION_VALUES;
 		static const char* EDA_CALIBRATION_ACK;
+		static const char* EMOTIBIT_READY;
+		static const char* EMOTIBIT_STORAGE;
 	};
 
 	static const char MSG_START_CHAR = '@';
@@ -74,6 +79,7 @@ public:
 	static void sendMessage(String typeTag, String payload = "");
 	static void parseBarcode(Barcode* barcode);
 	static bool validateVersionEstimate(String barcode, String estimate);
+	static void convertBarcodeToVariantInfo(Barcode barcode, EmotiBitVariantInfo_V1 &emotiBitVariantInfo);
 #else
 	static string createPacket(string typeTag, string payload = "");
 #endif

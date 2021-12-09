@@ -1,4 +1,5 @@
 #include "EmotiBitFactoryTest.h"
+#include "EmotiBitVersionController.h"
 
 // Factory Test Typetags
 const char* EmotiBitFactoryTest::TypeTag::EMOTIBIT_VERSION = "EV\0";
@@ -38,6 +39,8 @@ const char* EmotiBitFactoryTest::TypeTag::VERSION_VALIDATION = "VV\0";
 const char* EmotiBitFactoryTest::TypeTag::SKU_VALIDATION = "SV\0";
 const char* EmotiBitFactoryTest::TypeTag::EDA_CALIBRATION_VALUES = "EC\0";
 const char* EmotiBitFactoryTest::TypeTag::EDA_CALIBRATION_ACK = "EK\0";
+const char* EmotiBitFactoryTest::TypeTag::EMOTIBIT_READY = "ER\0";
+const char* EmotiBitFactoryTest::TypeTag::EMOTIBIT_STORAGE = "ES\0";
 
 #ifdef ARDUINO
 void EmotiBitFactoryTest::updateOutputString(String &output, const char* testType, const char* result)
@@ -45,7 +48,7 @@ void EmotiBitFactoryTest::updateOutputString(String &output, const char* testTyp
 	output += testType;
 	output += TypeTag::TEST_RESULT_DELIMITER;
 	output += result;
-	if(result != TypeTag::NULL_VAL)
+	if (testType != TypeTag::SETUP_COMPLETE)
 	{
 		output += TypeTag::TEST_TYPE_DELIMITER;
 	}
@@ -70,23 +73,47 @@ void EmotiBitFactoryTest::sendMessage(String typeTag, String payload)
 	// Parses the barcode 
 void EmotiBitFactoryTest::parseBarcode(Barcode* barcode)
 {
-	barcode->sku = barcode->code.substring(0, barcode->code.indexOf(BARCODE_DELIMITER));
-	barcode->code = barcode->code.substring(barcode->code.indexOf(BARCODE_DELIMITER) + 1);
-	barcode->emotibitVersion = barcode->code.substring(0, barcode->code.indexOf(BARCODE_DELIMITER));
-	barcode->emotibitNumber = barcode->code.substring(barcode->code.indexOf(BARCODE_DELIMITER) + 1);
+	String rawBarcode;
+	rawBarcode = barcode->rawCode;
+	barcode->sku = rawBarcode.substring(0, rawBarcode.indexOf(BARCODE_DELIMITER));
+	rawBarcode = rawBarcode.substring(rawBarcode.indexOf(BARCODE_DELIMITER) + 1);
+	barcode->hwVersion = rawBarcode.substring(0, rawBarcode.indexOf(BARCODE_DELIMITER));
+	barcode->emotibitSerialNumber = rawBarcode.substring(rawBarcode.indexOf(BARCODE_DELIMITER) + 1);
 }
 
 bool EmotiBitFactoryTest::validateVersionEstimate(String barcode, String estimate)
 {
 	// remove the leading "V" in version
-	barcode.remove(barcode.indexOf(EmotiBitVariants::VERSION_PREFIX),1);
-	estimate.remove(estimate.indexOf(EmotiBitVariants::VERSION_PREFIX),1);
+	barcode.remove(barcode.indexOf(EmotiBitVariants::HARDWARE_VERSION_PREFIX),1);
+	estimate.remove(estimate.indexOf(EmotiBitVariants::HARDWARE_VERSION_PREFIX),1);
 	if (barcode.toInt() == estimate.toInt())
 		return true;
 	else
 		return false;
 }
+
+void EmotiBitFactoryTest::convertBarcodeToVariantInfo(Barcode barcode, EmotiBitVariantInfo_V1 &emotiBitVariantInfo)
+{
+	for (uint8_t i = 0; i < (uint8_t)EmotiBitVersionController::EmotiBitVersion::length; i++)
+	{
+		String hwVersionStr = EmotiBitVersionController::getHardwareVersion((EmotiBitVersionController::EmotiBitVersion)i);
+		String barcodeHwVersion = barcode.hwVersion;
+		hwVersionStr.remove(hwVersionStr.indexOf(EmotiBitVariants::HARDWARE_VERSION_PREFIX), 1);
+		barcodeHwVersion.remove(barcodeHwVersion.indexOf(EmotiBitVariants::HARDWARE_VERSION_PREFIX), 1);
+		if (barcodeHwVersion.toInt() == hwVersionStr.toInt())
+			emotiBitVariantInfo.hwVersion = i;
+	}
+	
+	if (barcode.sku.equals(EmotiBitVariants::EMOTIBIT_SKU_EM))
+		strncpy(emotiBitVariantInfo.sku, EmotiBitVariants::EMOTIBIT_SKU_EM,EmotiBitVariants::EMOTIBIT_SKU_LENGTH);
+	else if(barcode.sku.equals(EmotiBitVariants::EMOTIBIT_SKU_MD))
+		strncpy(emotiBitVariantInfo.sku, EmotiBitVariants::EMOTIBIT_SKU_MD, EmotiBitVariants::EMOTIBIT_SKU_LENGTH);
+
+	emotiBitVariantInfo.emotibitSerialNumber = barcode.emotibitSerialNumber.toInt();
+}
 #else
+
+
 string EmotiBitFactoryTest::createPacket(string typeTag, string payload)
 {
 	string s = "";
