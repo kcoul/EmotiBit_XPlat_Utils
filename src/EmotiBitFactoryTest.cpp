@@ -92,7 +92,7 @@ bool EmotiBitFactoryTest::validateVersionEstimate(String barcode, String estimat
 		return false;
 }
 
-void EmotiBitFactoryTest::convertBarcodeToVariantInfo(Barcode barcode, EmotiBitVariantInfo &emotiBitVariantInfo)
+void EmotiBitFactoryTest::convertBarcodeToVariantInfo(Barcode barcode, EmotiBitVariantInfo_V1 &emotiBitVariantInfo)
 {
 	for (uint8_t i = 0; i < (uint8_t)EmotiBitVersionController::EmotiBitVersion::length; i++)
 	{

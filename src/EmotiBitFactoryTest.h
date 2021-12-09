@@ -79,7 +79,7 @@ public:
 	static void sendMessage(String typeTag, String payload = "");
 	static void parseBarcode(Barcode* barcode);
 	static bool validateVersionEstimate(String barcode, String estimate);
-	static void convertBarcodeToVariantInfo(Barcode barcode, EmotiBitVariantInfo &emotiBitVariantInfo);
+	static void convertBarcodeToVariantInfo(Barcode barcode, EmotiBitVariantInfo_V1 &emotiBitVariantInfo);
 #else
 	static string createPacket(string typeTag, string payload = "");
 #endif

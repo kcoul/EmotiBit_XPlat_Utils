@@ -23,10 +23,16 @@ enum class EmotiBitVariantDataFormat {
 	length
 };
 
+
+struct EmotiBitVariantInfo_V0
+{
+	uint8_t hwVersion;
+};
+
 /*!
 	@brief Struct to store the HW, SKU and emotiBit number.
 */
-struct EmotiBitVariantInfo {
+struct EmotiBitVariantInfo_V1 {
 	uint32_t emotibitSerialNumber;
 	char sku[3];
 	uint8_t hwVersion;
@@ -37,6 +43,6 @@ struct EmotiBitVariantInfo {
 	@brief Prints all the information about the EmotiBit variant.
 	@param emotibitVariantInfo Takes in the stuct EmotiBitVariantInfo
 */
-void printEmotiBitVariantInfo(EmotiBitVariantInfo emotibitVariantInfo);
+void printEmotiBitVariantInfo(EmotiBitVariantInfo_V1 emotibitVariantInfo);
 #endif
 
