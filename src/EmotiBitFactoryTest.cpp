@@ -5,6 +5,7 @@
 // Factory Test Typetags
 const char* EmotiBitFactoryTest::TypeTag::EMOTIBIT_VERSION = "EV\0";
 const char* EmotiBitFactoryTest::TypeTag::FIRMWARE_VERSION = "FV\0";
+const char* EmotiBitFactoryTest::TypeTag::EMOTIBIT_BARCODE = "BC\0";
 const char* EmotiBitFactoryTest::TypeTag::EMOTIBIT_SERIAL_NUMBER = "EN\0";
 const char* EmotiBitFactoryTest::TypeTag::EMOTIBIT_SKU_TYPE = "ST\0";
 const char* EmotiBitFactoryTest::TypeTag::I2C_COMM_INIT = "TW\0";
