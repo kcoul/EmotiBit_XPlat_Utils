@@ -101,6 +101,7 @@ public:
 		PPG_GREEN,	// PPG Green
 		SPO2,	// SpO2
 		TEMPERATURE_0,	// Temperature 0
+		TEMPERATURE_1, // Temperature measured on EmotiBit bottom, closest to center
 		THERMOPILE,	// Thermistor
 		HUMIDITY_0,	// Humidity 0
 		ACCELEROMETER_X,	// Accelerometer X-axis
@@ -156,7 +157,7 @@ public:
 		static const char* PPG_GREEN;
 		static const char* SPO2;
 		static const char* TEMPERATURE_0;
-    static const char* TEMPERATURE_1;
+		static const char* TEMPERATURE_1;
 		static const char* THERMOPILE;
 		static const char* HUMIDITY_0;
 		static const char* ACCELEROMETER_X;
