@@ -208,7 +208,8 @@ public:
 		static const char* PING;
 		static const char* PONG;
 		static const char* EMOTIBIT_DEBUG;
-       
+		static const char* HEART_RATE;
+		static const char* INTER_BEAT_INTERVAL;
 //        static vector<string> APERIODIC;
 	};
     
