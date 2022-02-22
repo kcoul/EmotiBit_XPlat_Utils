@@ -219,6 +219,8 @@ public:
   class TypeTagGroups
 	{
   public:
+	  static uint8_t NUM_APERIODIC;
+	  static uint8_t NUM_USER_MESSAGES;
       static const char* const APERIODIC[];
       static const char* const USER_MESSAGES[];
   };

@@ -83,12 +83,19 @@ const char* EmotiBitPacket::PayloadLabel::POWER_STATUS = "PS\0";
 
 
 const char EmotiBitPacket::PACKET_DELIMITER_CSV = '\n';
-const uint8_t nAperiodicTypeTags = 2;
-const uint8_t nUserMessagesTypeTags = 1;
-const char* const EmotiBitPacket::TypeTagGroups::APERIODIC[nAperiodicTypeTags] = {EmotiBitPacket::TypeTag::DATA_CLIPPING,
-    EmotiBitPacket::TypeTag::DATA_OVERFLOW};
-const char* const EmotiBitPacket::TypeTagGroups::USER_MESSAGES[nUserMessagesTypeTags] = {EmotiBitPacket::TypeTag::USER_NOTE};
-
+//const uint8_t nAperiodicTypeTags = 2;
+//const uint8_t nUserMessagesTypeTags = 1;
+const char* const EmotiBitPacket::TypeTagGroups::APERIODIC[] = 
+		{
+		EmotiBitPacket::TypeTag::HEART_RATE, 
+		EmotiBitPacket::TypeTag::INTER_BEAT_INTERVAL, 
+		EmotiBitPacket::TypeTag::ELECTRODERMAL_RESPONSE_CHANGE,
+		EmotiBitPacket::TypeTag::ELECTRODERMAL_RESPONSE_FREQ, 
+		EmotiBitPacket::TypeTag::ELECTRODERMAL_RESPONSE_RISE_TIME
+		};
+uint8_t EmotiBitPacket::TypeTagGroups::NUM_APERIODIC = sizeof(EmotiBitPacket::TypeTagGroups::APERIODIC) / sizeof(EmotiBitPacket::TypeTagGroups::APERIODIC[0]);
+const char* const EmotiBitPacket::TypeTagGroups::USER_MESSAGES[] = {EmotiBitPacket::TypeTag::USER_NOTE};
+uint8_t EmotiBitPacket::TypeTagGroups::NUM_USER_MESSAGES = sizeof(EmotiBitPacket::TypeTagGroups::USER_MESSAGES) / sizeof(EmotiBitPacket::TypeTagGroups::USER_MESSAGES[0]);
 //vector<string> EmotiBitPacket::TypeTag::APERIODIC.push_back(EmotiBitPacket::TypeTag::DATA_CLIPPING);
 
 #ifdef ARDUINO
