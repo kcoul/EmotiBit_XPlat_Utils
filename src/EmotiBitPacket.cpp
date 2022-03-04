@@ -89,8 +89,8 @@ const char* const EmotiBitPacket::TypeTagGroups::APERIODIC[] =
 		{
 		EmotiBitPacket::TypeTag::HEART_RATE, 
 		EmotiBitPacket::TypeTag::INTER_BEAT_INTERVAL, 
-		EmotiBitPacket::TypeTag::ELECTRODERMAL_RESPONSE_CHANGE, 
-		EmotiBitPacket::TypeTag::ELECTRODERMAL_RESPONSE_RISE_TIME
+		EmotiBitPacket::TypeTag::SKIN_CONDUCTANCE_RESPONSE_AMPLITUDE,
+		EmotiBitPacket::TypeTag::SKIN_CONDUCTANCE_RESPONSE_RISE_TIME
 		};
 uint8_t EmotiBitPacket::TypeTagGroups::NUM_APERIODIC = sizeof(EmotiBitPacket::TypeTagGroups::APERIODIC) / sizeof(EmotiBitPacket::TypeTagGroups::APERIODIC[0]);
 const char* const EmotiBitPacket::TypeTagGroups::USER_MESSAGES[] = {EmotiBitPacket::TypeTag::USER_NOTE};
