@@ -47,9 +47,9 @@ const char* EmotiBitPacket::TypeTag::EMOTIBIT_MODE = "EM\0";
 const char* EmotiBitPacket::TypeTag::EMOTIBIT_INFO = "EI\0";
 const char* EmotiBitPacket::TypeTag::HEART_RATE = "HR\0";
 const char* EmotiBitPacket::TypeTag::INTER_BEAT_INTERVAL = "BI\0";
-const char* EmotiBitPacket::TypeTag::ELECTRODERMAL_RESPONSE_FREQ = "EF\0";
-const char* EmotiBitPacket::TypeTag::ELECTRODERMAL_RESPONSE_CHANGE = "EC\0";
-const char* EmotiBitPacket::TypeTag::ELECTRODERMAL_RESPONSE_RISE_TIME = "ET\0";
+const char* EmotiBitPacket::TypeTag::SKIN_CONDUCTANCE_RESPONSE_AMPLITUDE = "SA\0";
+const char* EmotiBitPacket::TypeTag::SKIN_CONDUCTANCE_RESPONSE_FREQ = "SF\0";
+const char* EmotiBitPacket::TypeTag::SKIN_CONDUCTANCE_RESPONSE_RISE_TIME = "SR\0";
 // Computer data TypeTags (sent over reliable channel e.g. Control)
 const char* EmotiBitPacket::TypeTag::GPS_LATLNG = "GL\0";
 const char* EmotiBitPacket::TypeTag::GPS_SPEED = "GS\0";
