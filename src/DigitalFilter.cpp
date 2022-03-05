@@ -31,5 +31,6 @@ float DigitalFilter::filter(float inputSample)
 	else
 	{
 		// resolve for other filter types
+        return 0.0f;
 	}
 }

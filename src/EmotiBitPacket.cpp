@@ -70,6 +70,12 @@ const char* EmotiBitPacket::TypeTag::HELLO_EMOTIBIT = "HE\0";
 const char* EmotiBitPacket::TypeTag::HELLO_HOST = "HH\0";
 const char* EmotiBitPacket::TypeTag::EMOTIBIT_CONNECT = "EC\0";
 
+//Missing TypeTags
+const char* EmotiBitPacket::TypeTag::HEART_RATE = "HR\0";
+const char* EmotiBitPacket::TypeTag::ELECTRODERMAL_RESPONSE_CHANGE = "RC\0";
+const char* EmotiBitPacket::TypeTag::ELECTRODERMAL_RESPONSE_FREQ = "RF\0";
+const char* EmotiBitPacket::TypeTag::ELECTRODERMAL_RESPONSE_RISE_TIME = "RT\0";
+
 const char* EmotiBitPacket::PayloadLabel::CONTROL_PORT = "CP\0";
 const char* EmotiBitPacket::PayloadLabel::DATA_PORT = "DP\0";
 const char* EmotiBitPacket::PayloadLabel::RECORDING_STATUS = "RS\0";
@@ -83,7 +89,7 @@ const uint8_t nUserMessagesTypeTags = 1;
 const char* const EmotiBitPacket::TypeTagGroups::APERIODIC[nAperiodicTypeTags] = {EmotiBitPacket::TypeTag::DATA_CLIPPING,
     EmotiBitPacket::TypeTag::DATA_OVERFLOW};
 const char* const EmotiBitPacket::TypeTagGroups::USER_MESSAGES[nUserMessagesTypeTags] = {EmotiBitPacket::TypeTag::USER_NOTE};
-
+const uint8_t EmotiBitPacket::TypeTagGroups::NUM_APERIODIC = 2;
 //vector<string> EmotiBitPacket::TypeTag::APERIODIC.push_back(EmotiBitPacket::TypeTag::DATA_CLIPPING);
 
 #ifdef ARDUINO

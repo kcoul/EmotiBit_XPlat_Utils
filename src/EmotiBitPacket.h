@@ -210,6 +210,11 @@ public:
 		static const char* EMOTIBIT_DEBUG;
        
 //        static vector<string> APERIODIC;
+        
+        static const char* HEART_RATE;
+        static const char* ELECTRODERMAL_RESPONSE_CHANGE;
+        static const char* ELECTRODERMAL_RESPONSE_FREQ;
+        static const char* ELECTRODERMAL_RESPONSE_RISE_TIME;
 	};
     
   class TypeTagGroups
@@ -217,6 +222,7 @@ public:
   public:
       static const char* const APERIODIC[];
       static const char* const USER_MESSAGES[];
+      static const uint8_t NUM_APERIODIC;
   };
 
 	class PayloadLabel
